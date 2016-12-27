@@ -1,0 +1,15 @@
+# Codeception Test Suite Configuration
+#
+# Suite for acceptance tests.
+# Perform tests in browser using the WebDriver or PhpBrowser.
+# If you need both WebDriver and PHPBrowser tests - create a separate suite.
+
+class_name: BuzzyUiTester
+modules:
+    enabled:
+        - Asserts
+        - WebDriver:
+            url: http://buzzy.twinspark.co/buzzyadmin/
+            browser: firefox
+        - \Helper\BuzzyUi
+        
