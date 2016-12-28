@@ -26,625 +26,933 @@ class BuzzyUiTester extends \Codeception\Actor
 
 
 
-
-
-   public function login($user, $password) {
-   	$I = $this;
-    
-
-	$I->wantTo('Login to super admin dashboard');
-	$I->amOnPage('users/login');
-	$I->fillField('#username', $user);
-        $I->fillField('#password', $password);
-        $I->click('Login');
-        $I->wait(3);
+public function login($user, $password) {
+    $I = $this;
+    $I->wantTo('Login');
+    $I->amOnPage('/');
+    $I->fillField('#username', $user);
+    $I->fillField('#password', $password);
+    $I->click('Login');
+    $I->waitForElementVisible('#search-patient-input',3);
        // $I->click('html body.gray-bg div.loginColumns.animated.fadeInDown div.row div.col-md-6 button.btn.btn-primary.block.full-width.m-b');
       //  $I->see('Users');
   //S      $I->seeInCurrentUrl('admin');
-	
-	//$I->click('//*[@id="page-wrapper"]/div[3]/div[3]/div[3]/div/div[2]/a');
-
-	  
-        
-   }
-
-
-
-   public function BuzzyDoc_validations($desc,$input, $attribute,$expected,$message)
-    {
-    	$I = $this;
-
-        $I->amGoingTo($desc);
-        $temp= $I->grabAttributeFrom($input, $attribute);
-        codecept_debug($temp);
-        $I->assertEquals($expected, $temp, $message);
-        
-
+    
+    //$I->click('//*[@id="page-wrapper"]/div[3]/div[3]/div[3]/div/div[2]/a');
     }
 
-    
 
-public function Add_vendor($orgname,$mindeposit, $threshold,$lastname,$firstname,$email,$username,$password,$phone)
+public function negative_case_for_add_gift_coupons($description, $points, $expiry_duration, $option)
     {
-      $I = $this;
+        //Add Gift Coupons
+
+        $I = $this;
+      $I->amGoingTo('add gift coupons');
+      $I->wait(5);
+      $I->click('Settings');
+      $I->wait(5);
+      $I->click('Rewards');
+      $I->wait(5);
+        $I->click('Gift Coupons');
+        $I->wait(10);
+        $I->click('Add Coupons');
+        $I->wait(10);
+        $I->waitForElementVisible('#description', 10);
+        $I->BuzzyDoc_validations('check required validation for gift coupon description', '#description' , 'required', 'true', 'verified validation for  gift coupons  decription');
+        $I->fillField('#description', $description);
+        $I->waitForElementVisible(Locator::find('button', ['type'=>'submit']), 5);
+        $I->click('Submit');
+        $I->BuzzyDoc_validations('check required validation for gift coupon points', '#points' , 'required', 'true', 'verified validation for  gift coupons  points');
+        $I->BuzzyDoc_validations('check minimum value validation for gift coupon points', '#points' , 'min', 1, 'verified validation for  gift coupons  points');
+        $I->fillField('#points', $points);
+        $I->waitForElementVisible(Locator::find('button', ['type'=>'submit']), 5);
+        $I->click('Submit');
+        $I->BuzzyDoc_validations('check required validation for gift coupon expiry-duration', '#expiry-duration' , 'required', 'true', 'verified validation for  gift coupons  expiry-duration');
+        $I->BuzzyDoc_validations('check minimum value validation for gift coupon expiry-duration', '#expiry-duration' , 'min', 1, 'verified validation for  gift coupons  expiry-duration');
+        $I->fillField('#expiry-duration', $expiry_duration);
+        $I->waitForElementVisible(Locator::find('button', ['type'=>'submit']), 5);
+        $I->click('Submit');
+
+      //View Gift Coupons
+
+      $I->amGoingTo('view gift coupons');
+      $I->waitForElementVisible(Locator::find('a', ['class'=>'btn btn-xs btn-success']), 5);
+      $I->selectOption("select[name = DataTables_Table_0_length]", $option);
+      $I->click(Locator::lastElement(Locator::find('a', ['class'=>'btn btn-xs btn-success'])));
+      $I->wait(5);
+      $I->see($description);
+      $I->see($points);
+      $I->see($expiry_duration);
+      $I->waitForElementVisible(Locator::find('a', ['class'=>'btn btn-warning']), 5);
+      $I->click('Back');
+      $I->wait(5);
+    }
+
+    public function negative_case_for_edit_delete_gift_coupons($description, $points, $expiry_duration, $option)
+    {
+        //Edit Gift Coupans
+        $I = $this;
+      $I->amGoingTo('edit gift coupons');
+      $I->wait(5);
+      $I->click('Settings');
+      $I->wait(5);
+      $I->click('Rewards');
+      $I->waitForText('Gift Coupons', 5);
+      $I->click('Gift Coupons');
+      $I->wait(5);
+      $I->click(Locator::find('a', ['href' => '/staging/gift-coupons']));
+      $I->wait(5);
+      $I->selectOption("select[name = DataTables_Table_0_length]", $option);
+      $I->wait(5);
+           $I->click(Locator::lastElement(Locator::find('a', ['class'=>'btn btn-xs btn-warning'])));
+           $I->wait(10);
+           $I->waitForElementVisible('#description', 5);
+           $I->BuzzyDoc_validations('check required validation for gift coupon description', '#description' , 'required', 'true', 'verified validation for  gift coupons  decription');
+        $I->fillField('#description', $description);
+        $I->BuzzyDoc_validations('check required validation for gift coupon points', '#points' , 'required', 'true', 'verified validation for  gift coupons  points');
+        $I->BuzzyDoc_validations('check minimum value validation for gift coupon points', '#points' , 'min', 1, 'verified validation for  gift coupons  points');
+        $I->fillField('#points', $points);
+        $I->BuzzyDoc_validations('check required validation for gift coupon expiry-duration', '#expiry-duration' , 'required', 'true', 'verified validation for  gift coupons  expiry-duration');
+        $I->BuzzyDoc_validations('check minimum value validation for gift coupon expiry-duration', '#expiry-duration' , 'min', 1, 'verified validation for  gift coupons  expiry-duration');
+        $I->fillField('#expiry-duration', $expiry_duration);
+        $I->waitForElementVisible(Locator::find('button', ['type'=>'submit']), 5);
+        $I->click('Submit');
+
+
+        //Delete Gift Coupons
+
+      $I->wait(2);
+      $I->selectOption("select[name = DataTables_Table_0_length]", $option);
+      $I->wait(5);  
+      $I->click(Locator::lastElement(Locator::find('a', ['class' => 'btn btn-sm btn-danger fa fa-trash-o fa-fh'])));//click on Delete button
+      $I->seeInPopup('Are you sure you want to delete');
       $I->wait(3);
-       // $I->amOnPage('admin');
-        $I->click('/html/body/div[2]/nav/div/ul/li[3]/a');//vendors
-      //$I->wait(3);
-        $I->click('Vendors');
-        $I->wait(3);
-        $I->click('/html/body/div[2]/nav/div/ul/li[3]/ul/li[2]/a'); //Add Vendors
-      //  $I->click('Add Vendor');
-        $I->see('Vendors');
-        $I->seeInCurrentUrl('vendors/add');
-        $I->wait(3);
-        $I->fillField('#org-name', $orgname); //Vendor Organization Name
-        $I->fillField('#min-deposit', $mindeposit); //Reward Template
-        $I->fillField('#threshold-value', $threshold);
-        $I->wait(1);
-        //$I->seeCheckboxIsChecked('#checkbox[type=checkbox]'); 
-       // $I->uncheckOption('/html/body/div[2]/div/div[3]/div/div/div/div[2]/form/div[10]/div/label/input[2]');
-       // $I->dontSeeCheckboxIsChecked('#agree');
-        $I->fillField('#user-last-name', $lastname);
-        $I->wait(1);
-        $I->fillField('#user-first-name', $firstname);
-        $I->wait(1);
-        $I->fillField('#user-email', $email);
-        $I->wait(1);
-        $I->fillField('#user-username', $username);
-        $I->wait(1);
-        $I->fillField('#user-password', $password);
-        $I->wait(1);
-        $I->fillField('#user-phone', $phone);
-        $I->wait(3);
-        $I->click('Submit');
-      //  $I->click('html body.pace-done div#wrapper div#page-wrapper.gray-bg div.wrapper.wrapper-content.animated.fadeIn div.row div.col-lg-12 div.ibox.float-e-margins div.ibox-content form.form-horizontal div.form-group div.col-sm-4.col-sm-offset-2 button.btn.btn-primary.disabled');
-        $I->wait(3);
-        $I->see('vendors');
-        $I->seeInCurrentUrl('vendors');
-        $I->wait(3);
-        /*$I->click('/html/body/div[2]/div/div[1]/nav/ul/li/a');
-        $I->wait(3);
-        $I->see('Our patients love the rewards program. ');
-        $I->seeInCurrentUrl('users/login');*/
+      $I->cancelPopup();
+      $I->wait(3);
     }
 
 
-    public function vendor_delete($delete_button_link,$dontsee)
+
+
+public function positive_case_for_add_view_gift_coupons($description, $points, $expiry_duration, $option)
     {
-$I = $this;
-      ////  $I->login();
-//$I->amOnPage('admin');
-       // $I->click('/html/body/div[2]/nav/div/ul/li[4]/a'); //Users
-$I->click('Vendors');
-        $I->wait(3);
-        $I->click('.active li:first-child');
-//       $I->click('/html/body/div[2]/nav/div/ul/li[4]/ul/li[1]/a');//View All Users
-      //  $I->see($);
-        $I->seeInCurrentUrl('vendors');
-        $I->wait(3);
-        $I->click($delete_button_link);
-        $I->seeInPopup('Are you sure you want to delete');
-        $I->wait(3);
-        $I->acceptPopup();
-        $I->wait(3);
-        $I->dontSee($dontsee);
-        $I->wait(3);
-        $I->seeInCurrentUrl('vendors');
-        $I->wait(3);
-        //$I->wait(3);
-        /*$I->click('/html/body/div[2]/div/div[1]/nav/ul/li/a');
+        //Add Gift Coupons
+
+        $I = $this;
+        $I->amGoingTo('add gift coupons');
+      $I->wait(5);
+      $I->click('Settings');
+      $I->wait(5);
+        $I->click('Rewards');
+        $I->waitForText('Gift Coupons', 5);
+        $I->click('Gift Coupons');
+        $I->waitForText('Add Coupons', 5);
+        $I->click('Add Coupons');
+        $I->waitForElementVisible('#description', 5);
+        $I->fillField('#description', $description);
+        $I->waitForElementVisible('#points', 5);
+        $I->fillField('#points', $points);
+        $I->waitForElementVisible('#expiry-duration', 5);
+        $I->fillField('#expiry-duration', $expiry_duration);
+        $I->waitForElementVisible(Locator::find('button', ['type'=>'submit']), 5);
+        $I->click('Submit');
         $I->wait(5);
-        $I->see('Our patients love the rewards program.');
-        $I->seeInCurrentUrl('users/login');*/
-    }
-     
-    
 
-public function Add_user($vendor,$role,$firstname,$lastname, $email, $phone,$username, $password)
-    {
-      $I = $this;
-      
-     //   $I->amOnPage('admin');
-       // $I->click('/html/body/div[2]/nav/div/ul/li[4]/a'); //Users/html/body/div[2]/nav/div/ul/li[3]/a
-      $I->click('Users');
-        $I->wait(3);
-      //  $I->click('/html/body/div[2]/nav/div/ul/li[4]/ul/li[2]/a'); //Add Users
-        $I->click('Add User');
-        $I->wait(3);
-        $I->see('Users');
-        $I->seeInCurrentUrl('users/add');
-        $I->wait(3);
-        /*$I->click('/html/body/div[2]/div/div[3]/div/div/div/div[2]/form/div[2]/div/div/select/option[2]');
-        $I->click('/html/body/div[2]/div/div[3]/div/div/div/div[2]/form/div[2]/div/div/select/option[3]');
-        $I->click('/html/body/div[2]/div/div[3]/div/div/div/div[2]/form/div[4]/div/div/select/option[2]');*/
+        //View Gift Coupons
 
-        $I->selectOption('form select[name=vendor_id]', $vendor);
-        $I->selectOption('form select[name=role_id]', $role);
-
-        $I->fillField('#first-name', $firstname);
-        $I->wait(1);
-        $I->fillField('#last-name', $lastname);
-        $I->wait(1);
-        $I->fillField('#email', $email);
-        $I->wait(1);
-        $I->fillField('#phone', $phone);
-        $I->wait(1);
-        $I->fillField('#username', $username);
-        $I->wait(1);
-        $I->fillField('#password', $password);
-        $I->wait(3);
-       // $I->click('/html/body/div[2]/div/div[3]/div/div/div/div[2]/form/div[18]/div/button');
-        $I->click('Submit');
-        $I->wait(3);
-        $I->see($email);
-        $I->seeInCurrentUrl('users');
-        $I->wait(3);
-        /*$I->click('/html/body/div[2]/div/div[1]/nav/ul/li/a');
-        $I->wait(3);
-        $I->see('Our patients love the rewards program. ');
-        $I->seeInCurrentUrl('users/login');
-        */
+           $I->amGoingTo('view gift coupons');
+           $I->waitForElementVisible(Locator::find('a', ['class'=>'btn btn-xs btn-success']), 5);
+      $I->selectOption("select[name = DataTables_Table_0_length]", $option);
+           $I->click(Locator::lastElement(Locator::find('a', ['class'=>'btn btn-xs btn-success'])));
+           $I->wait(5);
+           $I->see($description);
+           $I->see($points);
+           $I->see($expiry_duration);
+           $I->waitForElementVisible(Locator::find('a', ['class'=>'btn btn-warning']), 5);
+           $I->click('Back');
+           $I->wait(5);
     }
 
-    public function User_view($view_button_link,$vendor,$email) 
+    public function positive_case_for_edit_delete_gift_coupons($description, $points, $expiry_duration, $option)
     {
+        //Edit Gift Coupans
+        $I = $this;
+        $I->amGoingTo('edit gift coupons');
+      $I->wait(5);
+      $I->click('Settings');
+      $I->wait(5);
+        $I->click('Rewards');
+        $I->waitForText('Gift Coupons', 5);
+        $I->click('Gift Coupons');
+        $I->wait(5);
+        $I->click(Locator::find('a', ['href' => '/staging/gift-coupons']));
+        $I->wait(5);
+      $I->selectOption("select[name = DataTables_Table_0_length]", $option);
+      $I->wait(5);
+           $I->click(Locator::lastElement(Locator::find('a', ['class'=>'btn btn-xs btn-warning'])));
+           $I->wait(10);
+           $I->waitForElementVisible('#description', 5);
+           $I->fillField('#description', $description);
+           $I->waitForElementVisible('#points', 5);
+           $I->fillField('#points', $points);
+           $I->waitForElementVisible('#expiry-duration', 5);
+           $I->fillField('#expiry-duration', $expiry_duration);
+           $I->waitForElementVisible(Locator::find('button', ['type' =>'submit']), 5);
+           $I->click('Submit');
+           $I->wait(5);
+
+           //Delete Gift Coupans
+
+           $I->selectOption("select[name = DataTables_Table_0_length]", $option);  
+      $I->click(Locator::lastElement(Locator::find('a', ['class' => 'btn btn-sm btn-danger fa fa-trash-o fa-fh'])));//click on Delete button
+      $I->seeInPopup('Are you sure you want to delete');
+      $I->wait(3);
+      $I->acceptPopup();
+      $I->wait(3);
+    }
+
+
+
+
+    public function gift_coupon_issue($gift_coupon_id)
+{
+   $I = $this;
+        $I->click(Locator::find('button', ['ng-class' => "getClass('/redeem')"]));
+        $I->wait (2);
+        $I->see('Redeem');
+        $I->seeInCurrentUrl('users/dashboard#!/redeem');
+        $I->click(Locator::find('a', ['ng-click' => "RdmCtrl.tabSwitch(4)"]));
+        $I->wait (2);
+        $I->click(Locator::find('button', ['id' => $gift_coupon_id]));
+        $I->wait (2);
+        $I->see('Are you sure you want to award the gift coupon?');
+        $I->wait (2);
+        $I->click('Yes');
+        $I->wait (5);
+        $I->click('OK');
+  
+}
+
+public function gift_coupon_redemption()
+{
+   $I = $this;
+        $I->click(Locator::find('button', ['class' => "btn btn-success btn-outline btn-md btn-block ng-binding"]));
+        $I->wait (2);
+        $I->see('Are you sure you want to redeem the gift coupon?');
+        $I->wait (2);
+        $I->click('Yes');
+        $I->wait (5);
+        $I->click('OK');
+        $I->dontSee(Locator::find('button', ['class' => "btn btn-success btn-outline btn-md btn-block ng-binding"]));
+        $I->wait(4);
+        
+  
+}
+
+
+public function gift_coupon_issue_neg($gift_coupon_id)
+{
+   $I = $this;
+        $I->click(Locator::find('button', ['ng-class' => "getClass('/redeem')"]));
+        $I->wait (2);
+        $I->see('Redeem');
+        $I->seeInCurrentUrl('users/dashboard#!/redeem');
+        $I->click(Locator::find('a', ['ng-click' => "RdmCtrl.tabSwitch(4)"]));
+        $I->wait (2);
+        $I->click(Locator::find('button', ['id' => $gift_coupon_id]));
+        $I->wait (2);
+        $I->see('Are you sure you want to award the gift coupon?');
+        $I->wait (2);
+        $I->click('Cancel');
+        $I->wait (5);
+  
+}
+
+public function gift_coupon_redemption_neg()
+{
+   $I = $this;
+        $I->click(Locator::find('button', ['class' => "btn btn-success btn-outline btn-md btn-block ng-binding"]));
+        $I->wait (2);
+        $I->see('Are you sure you want to redeem the gift coupon?');
+        $I->wait (2);
+        $I->click('Cancel');
+        $I->wait (5);
+       // $I->see(Locator::find('button', ['class' => "btn btn-success btn-outline btn-md btn-block ng-binding"]));
+        $I->wait(4);
+        
+  
+}
+
+
+
+public function positive_case_for_add_view_tiers($name, $upperbound, $multiplier, $giftcoupon, $option)
+       {
+           //Add
       $I = $this;
-      //  $I->click('/html/body/div[2]/nav/div/ul/li[4]/a'); //Users
-        $I->click('Users');
-        $I->wait(3);
-       // $I->click('/html/body/div[2]/nav/div/ul/li[4]/ul/li[1]/a');//View All Users
-        $I->click('.active li:first-child');
-        $I->see('Users');
-        $I->seeInCurrentUrl('users');
-        $I->wait(3);
-        $I->click($view_button_link);//click on view button in Users
-        $I->wait(3);
-        $I->see($vendor);
-        $I->wait(3);
-        $I->see($email);
-        $I->wait(3);
-        //$I->see('+1(617)899-6218');
-        $I->wait(3);
-        //$I->seeInCurrentUrl('users/view/5');//view user
+      $I->amGoingTo('Ad Tiers');
+      $I->wait(5);
+      $I->click('Settings');
+      $I->wait(4);
+      $I->click('Tier Program');
+      $I->wait(5);
+      $I->click('Tiers');
+      $I->wait(10);
+      $I->click('Add New Tier');
+      $I->wait(5);
+      $I->waitForElementVisible('#name',5);
+      $I->fillField('#name', $name);
+      $I->fillfield('#upperbound' , $upperbound);
+      $I->fillField('#multiplier', $multiplier);
+      $I->selectOption("select[class=form-control]", $giftcoupon);
+      $I->waitForElementVisible(Locator::find('button', ['class' => 'btn btn-primary']));
+      $I->click('Submit');
+      $I->wait(5);
+      $I->seeInCurrentUrl('/tiers');
+
+
+           //view
+
+           $I->wait(5);
+           $I->amGoingTo('view tiers');
+      $I->selectOption("select[name = DataTables_Table_0_length]", $option);
+      $I->wait(5);
+           $I->click(Locator::lastElement(Locator::find('a', ['class'=>'btn btn-xs btn-success'])));
+           $I->wait(5);
+           $I->see($name);
+           $I->see($upperbound);
+           $I->see($multiplier);
+      $I->see($giftcoupon);
+           $I->wait(5);
+           $I->click('Back');
+           $I->wait(5);
+
+       }
+
+       public function positive_case_for_edit_delete_tiers($name, $upperbound, $multiplier, $giftcoupon, $option)
+       {
+           // Edit Tiers
+           $I = $this;
+           $I->amGoingTo('edit tiers');
+      $I->wait(5);
+      $I->click('Settings');
+      $I->wait(5);
+           $I->click('Tier Program');
+      $I->wait(5);
+           $I->click('Tiers');
+      $I->wait(5);
+      $I->selectOption("select[name = DataTables_Table_0_length]", $option);
+           $I->waitForElementVisible((Locator::find('a', ['class'=>'btn btn-xs btn-warning'])), 5);
+           $I->click(Locator::lastElement(Locator::find('a', ['class'=>'btn btn-xs btn-warning'])));
+           $I->waitForElementVisible('#name',5);
+      $I->fillField('#name', $name);
+      $I->fillfield('#upperbound' , $upperbound);
+      $I->fillField('#multiplier', $multiplier);
+           $I->selectOption("select[class=form-control]", $giftcoupon);
+           $I->waitForElementVisible(Locator::find('button', ['class' => 'btn btn-primary']));
+           $I->click(Locator::find('button', ['class' => 'btn btn-primary']));
+           $I->wait(5);
+
+           // Delete Tier
+
         $I->wait(2);
-        //$I->click('/html/body/div[2]/div/div[3]/div/div/div/div/div[3]/div/a');//back
-        $I->click('Back');
-        $I->see('Users');
-        $I->seeInCurrentUrl('users');
-        $I->wait(3);
-        /*$I->click('/html/body/div[2]/div/div[1]/nav/ul/li/a');
-        $I->wait(3);
-        $I->see('Our patients love the rewards program. ');
-        $I->seeInCurrentUrl('users/login');*/
-
-    }
-
-    public function User_edit($edit_button_link,$lastname,$email,$username,$password,$status_check,$status)
-    {
-      $I = $this;
-       // $I->click('/html/body/div[2]/nav/div/ul/li[4]/a'); //Users
-      $I->click('Users');
-        $I->wait(3);
-        $I->click('.active li:first-child');
-        //$I->click('/html/body/div[2]/nav/div/ul/li[4]/ul/li[1]/a');//View All Users
-        $I->see('Users');
-        //$I->seeInCurrentUrl('users');
-        $I->wait(3);   
-        $I->click($edit_button_link);
-        $I->wait(3); 
-        $I->see('Edit User');
-        //$I->seeInCurrentUrl('users/edit/');//give link
-        $I->wait(3); 
-      //  $I->click('/html/body/div[2]/div/div[3]/div/div/div/div[2]/form/div[2]/div/div/select/option[2]');
-       // $I->click('/html/body/div[2]/div/div[3]/div/div/div/div[2]/form/div[4]/div/div/select/option[3]');
-        $I->wait(1);
-        $I->fillField('#last-name', $lastname);
-        $I->wait(1);
-        $I->fillField('#email', $email);
-        $I->wait(1);
-        //$I->fillField('#phone', '+1(617)660-6218');
-        $I->wait(1);
-        $I->fillField('#username', $username);
-        $I->wait(1);
-        $I->fillField('#password', $password);
-        $I->wait(3);
-        if($status_check=='0')
-          {$I->uncheckOption($status);}
-       // $I->click('/html/body/div[2]/div/div[3]/div/div/div/div[2]/form/div[18]/div/button');
-        $I->click('Submit');
-        $I->wait(3);
-        //$I->see('+1(617)660-6218');
-        //$I->wait(2);
-        $I->seeInCurrentUrl('users');
-        $I->wait(3);
-        /*$I->click('/html/body/div[2]/div/div[1]/nav/ul/li/a');
-        $I->wait(3);
-        $I->see('Our patients love the rewards program. ');
-        $I->seeInCurrentUrl('users/login');*/
-    }
-    //tbody tr:nth-child(2)
-
-
-public function User_delete($delete_button_link,$dontsee)
-    {
-$I = $this;
-      ////  $I->login();
-//$I->amOnPage('admin');
-       // $I->click('/html/body/div[2]/nav/div/ul/li[4]/a'); //Users
-$I->click('Users');
-        $I->wait(3);
-        $I->click('.active li:first-child');
-//       $I->click('/html/body/div[2]/nav/div/ul/li[4]/ul/li[1]/a');//View All Users
-      //  $I->see($);
-        $I->seeInCurrentUrl('users');
-        $I->wait(3);
-        $I->click($delete_button_link);
+        $I->selectOption("select[name = DataTables_Table_0_length]", $option);
+        $I->wait(5);  
+        $I->click(Locator::lastElement(Locator::find('a', ['class' => 'btn btn-sm btn-danger fa fa-trash-o fa-fh'])));//click on Delete button
         $I->seeInPopup('Are you sure you want to delete');
         $I->wait(3);
         $I->acceptPopup();
         $I->wait(3);
-        $I->dontSee($dontsee);
+
+       }
+
+       public function positive_case_for_add_view_tier_perk($tier, $perk, $option)
+       {
+           //Add
+          $I = $this;
+           $I->amGoingTo('add tier perk');
+      $I->wait(5);
+      $I->click('Settings');
+      $I->wait(5);
+           $I->click('Tier Program');
+           $I->wait(5);
+           $I->click('Tier Perks');
+           $I->waitForElementVisible(Locator::find('a', ['class' => 'btn btn-success']), 10);
+           $I->click('Add New Tier Perk');
+           $I->waitForElementVisible('#tier-id', 5);
+           $I->selectOption('#tier-id', $tier);
+           $I->fillField('#perk', $perk);
+           $I->waitForElementVisible(Locator::find('button', ['type'=> 'submit']));
+           $I->click('Submit');
+           $I->wait(5);
+
+           //view
+           $I->wait(5);
+           $I->amGoingTo('view tier perk');
+      $I->selectOption("select[name = DataTables_Table_0_length]", $option);
+      $I->wait(5);
+           $I->click(Locator::lastElement(Locator::find('a', ['class'=>'btn btn-xs btn-success'])));
+           $I->wait(5);
+           $I->see($tier);
+           $I->see($perk);
+           $I->waitForElementVisible(Locator::find('a', ['class'=>'btn btn-warning']));
+           $I->click('Back');
+           $I->wait(5);
+
+       }
+
+       public function positive_case_for_edit_delete_tier_perk($tier, $perk, $option)
+       {
+           //Edit Tier Perks
+           $I = $this;
+           $I->amGoingTo('edit tier perk');
+           $I->wait(10);
+      $I->click('Settings');
+      $I->wait(5);
+      $I->click('Tier Program');
+      $I->wait(5);
+      $I->click('Tier Perks');
+      $I->wait(5);
+      $I->selectOption("select[name = DataTables_Table_0_length]", $option);
+           $I->waitForElementVisible(Locator::find('a', ['class' => 'btn btn-success']),5);
+           $I->click(Locator::lastElement(Locator::find('a', ['class'=>'btn btn-xs btn-warning'])));
+           $I->waitForElementVisible('#tier-id', 5);
+           $I->selectOption('#tier-id', $tier);
+           $I->fillField('#perk', $perk);
+           $I->waitForElementVisible(Locator::find('button', ['type'=> 'submit']));
+           $I->click('Submit');
+           $I->wait(5);
+
+           //Delete Tier Perks
+           $I->wait(2);
+      $I->selectOption("select[name = DataTables_Table_0_length]", $option);
+      $I->wait(5);  
+      $I->click(Locator::lastElement(Locator::find('a', ['class' => 'btn btn-sm btn-danger fa fa-trash-o fa-fh'])));//click on Delete button
+      $I->seeInPopup('Are you sure you want to delete');
+      $I->wait(3);
+      $I->acceptPopup();
+      $I->wait(3);
+       }
+public function negative_case_for_add_tiers($name, $upperbound, $multiplier, $giftcoupon, $option)
+    {
+        $I = $this;
+      $I->amGoingTo('Ad Tiers');
+      $I->wait(5);
+      $I->click('Settings');
+      $I->wait(4);
+      $I->click('Tier Program');
+      $I->wait(5);
+      $I->click('Tiers');
+      $I->wait(10);
+           $I->click('Add New Tier');
+           $I->waitForElementVisible('#name',5);
+           $I->click('Submit');
+           $I->wait(5);
+           $I->BuzzyDoc_validations('check required validation for tier name', '#name' , 'required', 'true', 'verified validation for  tier name');
+           $I->BuzzyDoc_validations('check maximum length validation for tier name', '#name' , 'maxlength', 255, 'verified maximum length validation for  tier name');
+           $I->fillField('#name', $name);
+           $I->click('Submit');
+           $I->waitForElementVisible('#upperbound', 5);
+           $I->BuzzyDoc_validations('check required validation for upperbound value', '#upperbound' , 'required', 'true', 'verified validation for  upperbound value');
+           $I->BuzzyDoc_validations('check minimum value validation for upperbound value', '#upperbound' , 'min', 0, 'verified maximum length validation for  upperbound value');
+           $I->fillField('#upperbound', $upperbound);
+           $I->click('Submit');
+           $I->waitForElementVisible('#multiplier', 5);
+           $I->BuzzyDoc_validations('check required validation for multiplier value', '#multiplier' , 'required', 'true', 'verified validation for  multiplier value');
+           $I->BuzzyDoc_validations('check minimum value validation for multiplier value', '#multiplier' , 'min', 0, 'verified maximum length validation for  multiplier value');
+           $I->fillField('#multiplier', $multiplier);
+      $I->selectOption("select[class=form-control]", $giftcoupon);
+           $I->waitForElementVisible(Locator::find('button', ['class' => 'btn btn-primary']));
+           $I->click('Submit');
+           $I->wait(5);
+
+        //view
+
+      $I->wait(5);
+      $I->amGoingTo('view tiers');
+      $I->selectOption("select[name = DataTables_Table_0_length]", $option);
+      $I->wait(5);
+      $I->click(Locator::lastElement(Locator::find('a', ['class'=>'btn btn-xs btn-success'])));
+      $I->wait(5);
+      $I->see($name);
+      $I->see($upperbound);
+      $I->see($multiplier);
+      $I->see($giftcoupon);
+      $I->wait(5);
+      $I->click('Back');
+      $I->wait(5);
+    }
+
+    public function negative_case_for_edit_delete_tiers($name, $upperbound, $multiplier, $giftcoupon, $option)
+    {
+        //Edit
+
+        $I = $this;
+      $I->amGoingTo('edit tiers');
+      $I->wait(5);
+      $I->click('Settings');
+      $I->wait(5);
+      $I->click('Tier Program');
+      $I->wait(5);
+      $I->click('Tiers');
+      $I->wait(5);
+      $I->selectOption("select[name = DataTables_Table_0_length]", $option);
+      $I->waitForElementVisible((Locator::find('a', ['class'=>'btn btn-xs btn-warning'])), 5);
+           $I->click(Locator::lastElement(Locator::find('a', ['class'=>'btn btn-xs btn-warning'])));
+           $I->waitForElementVisible('#name',5);
+           $I->BuzzyDoc_validations('check required validation for tier name', '#name' , 'required', 'true', 'verified validation for  tier name');
+           $I->BuzzyDoc_validations('check maximum length validation for tier name', '#name' , 'maxlength', 255, 'verified maximum length validation for  tier name');
+           $I->fillField('#name', $name);
+           $I->waitForElementVisible('#upperbound', 5);
+           $I->BuzzyDoc_validations('check required validation for upperbound value', '#upperbound' , 'required', 'true', 'verified validation for  upperbound value');
+ 
+           $I->fillField('#upperbound', $upperbound);
+           $I->waitForElementVisible('#multiplier', 5);
+           $I->BuzzyDoc_validations('check required validation for multiplier value', '#multiplier' , 'required', 'true', 'verified validation for  multiplier value');
+           $I->fillField('#multiplier', $multiplier);
+      $I->selectOption("select[class=form-control]", $giftcoupon);
+      $I->waitForElementVisible(Locator::find('button', ['class' => 'btn btn-primary']));
+      $I->click(Locator::find('button', ['class' => 'btn btn-primary']));
+      $I->wait(5);
+
+
+      // Delete Tier
+
+        $I->wait(2);
+        $I->selectOption("select[name = DataTables_Table_0_length]", $option);
+        $I->wait(5);  
+        $I->click(Locator::lastElement(Locator::find('a', ['class' => 'btn btn-sm btn-danger fa fa-trash-o fa-fh'])));//click on Delete button
+        $I->seeInPopup('Are you sure you want to delete');
         $I->wait(3);
-        $I->seeInCurrentUrl('users');
+        $I->cancelPopup();
         $I->wait(3);
-        //$I->wait(3);
-        /*$I->click('/html/body/div[2]/div/div[1]/nav/ul/li/a');
+ 
+    }
+
+    public function negative_case_for_add_tier_perks($tier, $perk, $option)
+    {
+        $I = $this;
+      $I->amGoingTo('add tier perk');
+      $I->wait(5);
+      $I->click('Settings');
+      $I->wait(5);
+      $I->click('Tier Program');
+      $I->wait(5);
+      $I->click('Tier Perks');
+      $I->waitForElementVisible(Locator::find('a', ['class' => 'btn btn-success']), 10);
+           $I->click('Add New Tier Perk');
+           $I->waitForElementVisible('#tier-id', 5);
+           $I->BuzzyDoc_validations('check required validation for tier name', '#tier-id' , 'required', 'true', 'verified validation for  tier name');
+           $I->selectOption('#tier-id', $tier);
+           $I->BuzzyDoc_validations('check required validation for perk', '#perk' , 'required', 'true', 'verified validation for  perk');
+           $I->fillField('#perk', $perk);
+           $I->waitForElementVisible(Locator::find('button', ['type'=> 'submit']));
+           $I->click('Submit');
+           $I->wait(5);
+
+      //view
+
+      $I->wait(5);
+      $I->amGoingTo('view tier perk');
+      $I->selectOption("select[name = DataTables_Table_0_length]", $option);
+      $I->wait(5);
+      $I->click(Locator::lastElement(Locator::find('a', ['class'=>'btn btn-xs btn-success'])));
+      $I->wait(5);
+      $I->see($tier);
+      $I->see($perk);
+      $I->waitForElementVisible(Locator::find('a', ['class'=>'btn btn-warning']));
+      $I->click('Back');
+      $I->wait(5);
+    }
+
+    public function negative_case_for_edit_delete_tier_perks($tier, $perk, $option)
+    {
+        //Edit Tier Perks
+      $I = $this;
+      $I->amGoingTo('edit tier perk');
+      $I->wait(10);
+      $I->click('Settings');
+      $I->wait(5);
+      $I->click('Tier Program');
+      $I->wait(5);
+      $I->click('Tier Perks');
+      $I->wait(5);
+      $I->selectOption("select[name = DataTables_Table_0_length]", $option);
+      $I->waitForElementVisible(Locator::find('a', ['class' => 'btn btn-success']),5);
+           $I->click(Locator::lastElement(Locator::find('a', ['class'=>'btn btn-xs btn-warning'])));
+           $I->waitForElementVisible('#tier-id', 5);
+           $I->BuzzyDoc_validations('check required validation for tier name', '#tier-id' , 'required', 'true', 'verified validation for  tier name');
+           $I->selectOption('#tier-id', $tier);
+           $I->BuzzyDoc_validations('check required validation for perk', '#perk' , 'required', 'true', 'verified validation for  perk');
+           $I->fillField('#perk', $perk);
+           $I->waitForElementVisible(Locator::find('button', ['type'=> 'submit']));
+           $I->click('Submit');
+           $I->wait(5);
+
+      //Delete Tier Perks
+      $I->wait(2);
+      $I->selectOption("select[name = DataTables_Table_0_length]", $option);
+      $I->wait(5);  
+      $I->click(Locator::lastElement(Locator::find('a', ['class' => 'btn btn-sm btn-danger fa fa-trash-o fa-fh'])));//click on Delete button
+      $I->seeInPopup('Are you sure you want to delete');
+      $I->wait(3);
+      $I->cancelPopup();
+      $I->wait(3);
+
+    }
+
+public function send_welcome_email()
+{
+   $I = $this;
+   $I->click(Locator::find('button', ['class' => 'btn btn-sm btn-success']));
+   $I->wait(5);
+   $I->see('Welcome Email Sent');
+   $I->click('OK');
+   $I->wait(3);
+  
+}
+    //Marketing flow
+    public function marketing_promotions(){
+        $I = $this;
+        $I->see('users');
+        $I->seeInCurrentUrl('users/dashboard#!/patient');
+        $I->checkOption(Locator::firstElement(Locator::find('input', ['ng-model' => 'selectedpromo'])));
+        $I->wait (2);
+        $I->click(Locator::find('button', ['ng-click' => 'postPatientMgmt()']));
+        $I->wait (2);
+        $I->see('Are you sure you want to award the points?');
+        $I->wait (2);
+        $I->click('Yes');
+        $I->wait (3);
+        $I->see('The points have been awarded.');
+        $I->wait (2);
+        $I->click('OK');
+        $I->see('Users');
+        $I->seeInCurrentUrl('users/dashboard#!/patient');      
+}
+
+
+public function amazon_tango(){
+        $I = $this;
+        $I->click(Locator::find('button', ['ng-class' => "getClass('/redeem')"]));
+        $I->wait (2);
+        $I->see('Redeem');
+        $I->seeInCurrentUrl('users/dashboard#!/redeem');
+        $I->click(Locator::find('a', ['ng-click' => "RdmCtrl.tabSwitch(2)"]));
+        $I->wait (2);
+        $I->click(Locator::find('button', ['ng-click' => "RdmCtrl.walletCredits(instantReward.label)"]));
+        $I->wait (2);
+        $I->see('Are you sure?');
+        $I->wait (2);
+        $I->click('Yes');
+        $I->wait (5);
+        $I->click('OK');
+}
+
+public function review_rating($new_review, $searchInput, $pressEnter){
+        $I = $this;
+        
+            $I->click('Action');
+            $I->wait(3);
+            $I->click('Request Review');
+            $I->wait(3);
+            $I->see('No Vendor Locations Exists.');
+            $I->seeInCurrentUrl('users/dashboard#!/requestReview');
+            $I->click('Settings');
+            $I->wait(2);
+            $I->click('Vendor Locations');
+            $I->wait(2);
+            $I->click('Add Vendor Location');
+            $I->wait(2);
+            $I->fillField('#address','Test Address');
+            $I->fillField('#fb-url','https://www.facebook.com');
+            $I->wait(3);
+            $I->fillField('#google-url','https://www.gmail.com');
+            $I->wait(3);
+            $I->fillField('#yelp-url','https://www.yelp.com');
+            $I->wait(3);
+            $I->fillField('#ratemd-url','https://www.ratemd.com');
+            $I->wait(3);
+            $I->fillField('#healthgrades-url','https://www.healthgrades.com');
+            $I->wait(3);
+            $I->fillField('#hash-tag','Testing');
+            $I->checkOption('Default Location');
+            $I->click('Submit');
+            $I->click(Locator::find('a', ['href' => '/staging/users/dashboard']));//click on dashboard
+            $I->waitForElementVisible('#search-patient-input',3);
+            $I->see('Search Patient');
+            $I->seeInCurrentUrl('users/dashboard');
+            $I->wait(1);//wait to start
+            $I->fillField(Locator::find('input',['ng-model' => 'query']),$searchInput); //fill the value you want to serach
+            $I->wait(2);
+            if($pressEnter=='0'){
+                $I->pressKey('#search-patient-input',WebDriverKeys::ENTER);}//for testing search using enter button
+            else
+              {$I->click('#search-patient-btn');}//testing serach using search button
+              $I->wait(4);
+            $I->click(Locator::elementAt('//table/tbody/tr', 1)); 
+            $I->click('Action');
+            $I->wait(3);
+            $I->click('Request Review');
+            $I->wait(3);
+            $I->click(Locator::find('button', ['ng-click' => "Reviews.refreshVendor()"]));
+            $I->wait(3);
+            $I->click('Send Request');
+        }
+
+
+ public function negative_case_for_add_view_promotions($promotion_name, $description, $points, $frequency, $option)
+   
+    {
+        $I = $this;
+        $I->amGoingTo('Add Promotions');
+        $I->wait(3);
+        $I->click('Settings');
+        $I->wait(3);
+        $I->click('Vendor Promotions');
+        $I->wait(4);
+        $I->click('Add Promotions');
+        $I->wait(2);
+        $I->click('Submit');
+        $I->wait(3);
+        $I->BuzzyDoc_validations('check required validation for promotion name', '#name', 'required', 'true', 'verified validation for promotion name');
+        $I->fillField('#name', $promotion_name);
+        $I->click('Submit');
+        $I->wait(3);
+        $I->BuzzyDoc_validations('check required validation for description', '#description', 'required', 'true', 'verified validation for description');
+        $I->fillField('#description', $description);
+        $I->click('Submit');
+        $I->BuzzyDoc_validations('check required validation for points', '#points', 'required', 'true', 'verified validation for points');
+        $I->BuzzyDoc_validations('check minimum value validation for points', '#points', 'min', 1, 'verified minimum value validation for points');
+        $I->BuzzyDoc_validations('check integer value validation for points', '#points', 'type', 'number' , 'verified integer value validation for points');
+        $I->fillField('#points', $points);
+        $I->click('Submit');
+        $I->BuzzyDoc_validations('check required validation for frequency', '#frequency', 'required', 'true', 'verified validation for points');
+        $I->BuzzyDoc_validations('check minimum value validation for frequency', '#frequency', 'min', 0, 'verified minimum value validation for points');
+        $I->BuzzyDoc_validations('check integer value validation for frequency', '#frequency', 'type', 'number' , 'verified integer value validation for points');
+        $I->fillField('#frequency', $frequency);
+        $I->click('Submit');
+        $I->wait(3);
+        $I->selectOption("select[name = DataTables_Table_0_length]", $option);
+        $I->seeCheckboxIsChecked(Locator::lastElement(Locator::find('input', ['type' => 'checkbox'])));
+
+        //View Method
+         $I->wait(4);
+         $I->click(Locator::lastElement(Locator::find('a', ['class' => 'btn btn-xs btn-success'])));
+         $I->wait(5);
+         $I->see($promotion_name);
+         $I->see($description);
+         $I->see($points);
+         $I->see($frequency);
+         $I->wait(3);
+         $I->click('Back');
+    }
+
+    public function negative_case_for_edit_delete_vendor_promotions($points, $option)
+    {
+        //Edit
+
+        $I = $this;
+        $I->amGoingTo('Edit Vendor Promotions');
+        $I->wait(3);
+        $I->click('Settings');
+        $I->wait(4);
+        $I->click('Vendor Promotions');
+        $I->wait(3);
+        $I->selectOption("select[name = DataTables_Table_0_length]", $option);
+        $I->wait(3);
+        $I->click(Locator::lastElement(Locator::find('a', ['class' => 'btn btn-xs btn-warning edit'])));
         $I->wait(5);
-        $I->see('Our patients love the rewards program.');
-        $I->seeInCurrentUrl('users/login');*/
-    }
-
-
-
-public function Add_referrals_templates($vendor,$subject,$description)
-    {
-      $I = $this;
-        $I->click('Referral Templates');
-        $I->wait(3);
-        $I->click('.active li:nth-child(2)');
-        $I->wait(3);
-        $I->see('Referral Templates');
-        $I->seeInCurrentUrl('referral-templates/add');
-        $I->wait(1);
-        $I->selectOption('form select[name=vendor_id]', $vendor);
-
-        $I->fillField('#subject', $subject);
-        $I->wait(1);
-        $I->fillField('#description', $description);
-        $I->wait(1);
-        if($status_check=='0')
-          {$I->uncheckOption($status);}
+        $I->BuzzyDoc_validations('check disabled validation for promotion name ','#promotion-id','disabled','true','disabled validation verified for promotion name');
+        $I->BuzzyDoc_validations('check required validation for points', '#points', 'required', 'true', 'verified validation for points');
+        $I->BuzzyDoc_validations('check minimum value validation for points', '#points', 'min', 1, 'verified minimum value validation for points');
+        $I->BuzzyDoc_validations('check integer value validation for points', '#points', 'type', 'number' , 'verified integer value validation for points');
+        $I->fillField('#points', $points);
         $I->click('Submit');
-        $I->wait(1);
-        $I->see($description);
-        $I->seeInCurrentUrl('referral-templates');
+
+        //Delete
         $I->wait(3);
+        $I->selectOption("select[name = DataTables_Table_0_length]", $option);
+        $I->wait(3);
+        $I->click(Locator::lastElement(Locator::find('a', ['class' => 'btn btn-sm btn-danger fa fa-trash-o fa-fh'])));//click on Delete button in Vendor Promotions
+        $I->wait(3);
+        $I->seeInPopup('Are you sure you want to delete');
+        $I->wait(3);
+        $I->cancelPopup();
+        $I->wait(3);
+
     }
 
-    public function View_referrals_templates($view_button_link,$vendor,$description)
+    public function positive_case_for_add_view_promotions($promotion_name, $description, $points, $frequency, $option)
     {
-      $I = $this;
-        $I->click('Referral Templates');
-        $I->wait(3);
-        $I->click('.active li:first-child');
-        $I->wait(3);
-        $I->see('Referral Templates');
-        $I->seeInCurrentUrl('referral-templates');
-        $I->wait(1);
-        $I->click($view_button_link);
-        $I->wait(3);
-        $I->see($vendor);
-        $I->wait(3);
-        $I->see($description);
-        $I->wait(3);
-        $I->click('Back');
-        $I->see('Referral Templates');
-        $I->seeInCurrentUrl('referral-templates');
-        $I->wait(3);
-    }
+        //Add method
 
-    public function Edit_referrals_templates($edit_button_link,$vendor,$subject,$description,$status_check,$status)
-    {
-      $I = $this;
-        $I->click('Referral Templates');
-        $I->wait(3);
-        $I->click('.active li:first-child');
-        $I->wait(3);
-        $I->see('Referral Templates');
-       // $I->seeInCurrentUrl('referral-templates');
-        $I->wait(1);
-        $I->click($edit_button_link);
-        $I->wait(1);
-        $I->selectOption('form select[name=vendor_id]', $vendor);
-        $I->fillField('#subject', $subject);
-        $I->wait(1);
-        $I->fillField('#description', $description);
-        $I->wait(1);
-        if($status_check=='0')
-          {$I->uncheckOption($status);}
-        $I->click('Submit');
-        $I->wait(1);
-        $I->see($description);
-        $I->seeInCurrentUrl('referral-templates');
-        $I->wait(3);
-    }
-
-    public function Delete_referrals_templates($delete_button_link,$dontsee)
-    {
         $I = $this;
-        $I->click('Referral Templates');
+        $I->amGoingTo('Add Promotions');
         $I->wait(3);
-        $I->click('.active li:first-child');
-        $I->see('Referral Templates');
-        $I->seeInCurrentUrl('referral-templates');
+        $I->click('Settings');
+        $I->wait(4);
+        $I->click('Vendor Promotions'); //Promotions
+        $I->wait(4);
+        $I->click(Locator::find('a', ['class' => 'btn btn-success']));
+        // $I->waitForElementVisible('#name', 4);
+        $I->wait(4);
+        $I->seeInCurrentUrl('promotions/add');
         $I->wait(3);
-        $I->click($delete_button_link);
+        $I->fillField('#name', $promotion_name);
+        $I->fillField("#description", $description);
+        $I->fillField("#points", $points);
+         $I->fillField("#frequency", $frequency);
+        $I->click('Submit');
+        $I->wait(5);
+        $I->see('Vendor Promotions');
+        $I->seeInCurrentUrl('vendor-promotions');
+        $I->wait(3);
+        $I->selectOption("select[name = DataTables_Table_0_length]", $option);
+        $I->seeCheckboxIsChecked(Locator::lastElement(Locator::find('input', ['type' => 'checkbox'])));
+
+        //View Method
+         $I->wait(4);
+         $I->click(Locator::lastElement(Locator::find('a', ['class' => 'btn btn-xs btn-success'])));
+         $I->wait(5);
+         $I->see($promotion_name);
+         $I->see($description);
+         $I->see($points);
+         $I->see($frequency);
+         $I->wait(3);
+         $I->click('Back');
+
+
+    }
+    public function positive_case_for_edit_delete_promotions($points, $option)
+    {
+        //Edit method
+
+        $I = $this;
+        $I->amGoingTo('Edit Vendor Promotions');
+        $I->wait(3);
+        $I->click('Settings');
+        $I->wait(4);      
+         $I->click('Vendor Promotions'); //Vendor Promotions
+        $I->wait(3);
+        $I->selectOption("select[name = DataTables_Table_0_length]", $option);
+        $I->wait(4);
+        $I->click(Locator::lastElement(Locator::find('a', ['class' => 'btn btn-xs btn-warning edit'])));
+        $I->fillField("#points", $points);
+        $I->wait(4);
+        $I->click('Submit');
+        $I->wait(5);
+        $I->see('Vendor Promotions');
+        $I->seeInCurrentUrl('vendor-promotions');
+        $I->see($points);
+
+        // Delete Vendor
+
+        $I->wait(2);
+        $I->selectOption("select[name = DataTables_Table_0_length]", $option);
+        $I->wait(5);  
+        $I->click(Locator::lastElement(Locator::find('a', ['class' => 'btn btn-sm btn-danger fa fa-trash-o fa-fh'])));//click on Delete button in Vendor Promotions
+        $I->wait(3);
         $I->seeInPopup('Are you sure you want to delete');
         $I->wait(3);
         $I->acceptPopup();
         $I->wait(3);
-        $I->dontSee($dontsee);
-        $I->wait(3);
-        $I->seeInCurrentUrl('referral-templates');
-        $I->wait(3);
+    
     }
 
-    public function Add_referrals_settings($vendor,$level,$referrer,$referree,$status_check,$status)
-    {
-      $I = $this;
-        $I->click('Vendor Referral Setting');
-        $I->wait(3);
-        $I->click('.active li:nth-child(2)');
-        $I->wait(3);
-        $I->see('Vendor Referral Settings');
-        $I->seeInCurrentUrl('vendor-referral-settings/add');
-        $I->wait(1);
-        $I->selectOption('form select[name=vendor_id]', $vendor);
-
-        $I->fillField('#referral-level-name', $level);
-        $I->wait(1);
-        $I->fillField('#referrer-award-points', $referrer);
-        $I->wait(1);
-         $I->fillField('#referree-award-points', $referree);
-        $I->wait(1);
-        if($status_check=='0')
-          {$I->uncheckOption($status);}
-        $I->click('Submit');
-        $I->wait(1);
-        $I->see($level);
-        $I->see('Vendor Referral Settings');
-        $I->seeInCurrentUrl('vendor-referral-settings');
-        $I->wait(3);
-    }
-
-    public function View_referrals_settings($view_button_link,$vendor,$level)
-    {
-      $I = $this;
-        $I->click('Vendor Referral Setting');
-        $I->wait(3);
-        $I->click('.active li:first-child');
-        $I->wait(3);
-        $I->see('Vendor Referral Settings');
-        $I->seeInCurrentUrl('vendor-referral-settings');
-        $I->wait(1);
-        $I->click($view_button_link);
-        $I->wait(3);
-        $I->see($vendor);
-        $I->wait(3);
-        $I->see($level);
-        $I->wait(3);
-        $I->click('Back');
-        $I->see('Vendor Referral Settings');
-        $I->seeInCurrentUrl('vendor-referral-settings');
-        $I->wait(3);
-    }
-
-    public function Edit_referrals_settings($edit_button_link,$vendor,$level,$referrer,$referree,$status_check,$status)
-    {
-      $I = $this;
-        $I->click('Vendor Referral Setting');
-        $I->wait(3);
-        $I->click('.active li:first-child');
-        $I->wait(3);
-        $I->see('Vendor Referral Settings');
-       // $I->seeInCurrentUrl('vendor-referral-settings');
-        $I->wait(1);
-        $I->click($edit_button_link);
-        $I->wait(1);
-        $I->selectOption('form select[name=vendor_id]', $vendor);
-        $I->fillField('#referral-level-name', $level);
-        $I->wait(1);
-        $I->fillField('#referrer-award-points', $referrer);
-        $I->wait(1);
-        $I->fillField('#referree-award-points', $referree);
-        $I->wait(1);
-        if($status_check=='0')
-          {$I->uncheckOption($status);}
-        $I->click('Submit');
-        $I->wait(1);
-        $I->see($level);
-        $I->see('Vendor Referral Settings');
-        $I->seeInCurrentUrl('vendor-referral-settings');
-        $I->wait(3);
-    }
-
-    public function Delete_referrals_settings($delete_button_link,$dontsee)
+    public function positive_vendor_promotions_checkboxChecked_edit($points)
     {
         $I = $this;
-        $I->click('Vendor Referral Setting');
+        $I->amGoingTo('Edit Vendor Promotions');
         $I->wait(3);
-        $I->click('.active li:first-child');
-        $I->see('Vendor Referral Settings');
-        $I->seeInCurrentUrl('vendor-referral-settings');
-        $I->wait(3);
-        $I->click($delete_button_link);
-        $I->seeInPopup('Are you sure you want to delete');
-        $I->wait(3);
-        $I->acceptPopup();
-        $I->wait(3);
-        $I->dontSee($dontsee);
-        $I->wait(3);
-        $I->seeInCurrentUrl('vendor-referral-settings');
-        $I->wait(3);
-    }
-
-    public function Add_referrals_form($vendor,$from,$to,$template,$subject,$description,$name,$phone,$status_check,$status)
-    {
-      $I = $this;
-        $I->click('Referral Form');
-        $I->wait(3);
-        $I->click('.active li:nth-child(2)');
-        $I->wait(3);
-        $I->see('Referrals');
-        $I->seeInCurrentUrl('referrals/add');
-        $I->wait(1);
-        $I->selectOption('form select[name=vendor_id]', $vendor);
-
-        $I->fillField('#refer-from', $from);
-        $I->wait(1);
-        $I->fillField('#refer-to', $to);
-        $I->wait(1);
-        $I->selectOption('form select[name=get_template_name]', $template);
-        $I->wait(1);
-        $I->fillField('#subject', $subject);
-        $I->wait(1);
-        $I->fillField('#description', $description);
-        $I->wait(1);
-        $I->fillField('#name', $name);
-        $I->wait(1);
-        $I->click('#phone', $phone);
-        if($status_check=='0')
-          {$I->uncheckOption($status);}
+        $I->click('Settings');
+        $I->wait(4);      
+         $I->click('Vendor Promotions'); //Vendor Promotions
+        $I->wait(4);
+        $I->checkOption("/descendant::input[@type='checkbox'][2]");
+        $I->wait(4);
+        $I->seeCheckboxIsChecked("/descendant::input[@type='checkbox'][2]");
+        $I->wait(4);
+        $I->click(Locator::elementAt(Locator::find('a', ['class' => 'btn btn-xs btn-warning edit']),2));
+        $I->wait(4);
+        $I->fillField("#points", $points);
+        $I->wait(4);
         $I->click('Submit');
-        $I->wait(1);
-        $I->see($subjectl);
-        $I->see('Referrals');
-        $I->seeInCurrentUrl('referrals');
-        $I->wait(3);
-    }
-
-
-public function View_referrals($view_button_link,$vendor,$level)
-    {
-      $I = $this;
-        $I->click('Referral Form');
-        $I->wait(3);
-        $I->click('.active li:first-child');
-        $I->wait(3);
-        $I->see('Referrals');
-        $I->seeInCurrentUrl('referrals');
-        $I->wait(1);
-        $I->click($view_button_link);
-        $I->wait(3);
-        $I->see($vendor);
-        $I->wait(3);
-        $I->see($name);
-        $I->wait(3);
-        $I->click('Back');
-        $I->see('Referrals');
-        $I->seeInCurrentUrl('referrals');
-        $I->wait(3);
-    }
-
-    public function Add_Lead_form($view_button_link,$vendor,$name,$email,$time,$status)
-    {
-      $I = $this;
-        $I->click('Referral Form');
-        $I->wait(3);
-        $I->click('.active li:first-child');
-        $I->wait(3);
-        $I->see('Referrals');
-        $I->seeInCurrentUrl('referrals');
-        $I->wait(1);
-        $I->click($view_button_link);
-        $I->wait(3);
-        $I->see($vendor);
-        $I->wait(3);
-        $I->see($name);
-        $I->wait(3);
-        $I->click('Click Here');
-        $I->see($name);
-        $I->wait(3);
-        $I->see($email);
-        $I->wait(3);
-        $I->selectOption('form select[name=preferred_talking_time]', $time);
-        $I->wait(1);
-        $I->checkOption($status);
-        $I->click('Submit');
-        $I->wait(3);
-
+        $I->wait(5);
+        $I->see('Vendor Promotions');
+        $I->seeInCurrentUrl('vendor-promotions');
+        $I->see($points);
+        $I->wait(2);
+        $I->uncheckOption("/descendant::input[@type='checkbox'][2]");
+        $I->wait(4);
+        $I->dontSeeCheckboxIsChecked("/descendant::input[@type='checkbox'][2]");
+        $I->wait(4);
 
     }
 
-    public function View_Lead_form($view_button_link,$vendor,$name)
-    {
-      $I = $this;
-      $I->amOnPage('vendor-referral-settings');
-        $I->click('Referral Leads');
-        $I->wait(3);
-        $I->click('.active li:first-child');
-        $I->wait(3);
-        $I->see('Referral Leads');
-        $I->seeInCurrentUrl('referral-leads');
-        $I->wait(1);
-        $I->click($view_button_link);
-        $I->wait(3);
-        $I->see($vendor);
-        $I->wait(3);
-        $I->see($name);
-        $I->wait(3);
-        $I->click('Back');
-        $I->see('Referral Leads');
-        $I->seeInCurrentUrl('referral-leads');
-        $I->wait(3);
-        
-    }
-
-public function Edit_Lead_form($level,$changed_level)
-    {
-      $I = $this;
-        $I->click('Referral Leads');
-        $I->wait(3);
-        $I->click('.active li:first-child');
-        $I->wait(3);
-        $I->see('Referral Leads');
-        $I->seeInCurrentUrl('referral-leads');
-        $I->wait(1);
-        $I->selectOption('form select[name=vendor_referral_settings_id]', $level);
-        $I->wait(3);
-        $I->reloadPage();
-        $I->see('Referral Leads');
-        $I->seeInCurrentUrl('referral-leads');
-        $I->wait(3);
-        $I->see($changed_level);
-        $I->wait(3);
-        
-    }
-
-
-public function Delete_lead_form($delete_button_link,$dontsee)
+    public function add_creditCardCharge($cardNum, $expiryDate, $cvv, $firstNameID, $lastNameID, $countryID, $zipID, $billingAddressID, $cityID, $stateID, $phonenumberID)
     {
         $I = $this;
-        $I->click('Referral Leads');
+        $I->amGoingTo('Add Credit Card');
         $I->wait(3);
-        $I->click('.active li:first-child');
-        $I->wait(3);
-        $I->see('Referral Leads');
-        $I->seeInCurrentUrl('referral-leads');
-        $I->wait(1);
-        $I->click($delete_button_link);
-        $I->seeInPopup('Are you sure you want to delete');
-        $I->wait(3);
-        $I->acceptPopup();
-        $I->wait(3);
-        $I->dontSee($dontsee);
-        $I->wait(3);
-        $I->seeInCurrentUrl('referral-leads');
-        $I->wait(3);
+        $I->click('Settings');
+        $I->wait(4);
+        $I->click('Credit Card Management');
+        $I->wait(5);
+        //$I->waitForElementVisible(Locator::find('a', ['href' => '/buzzyadmin/authorize-net-profiles']), 10);
+        $I->click('Payment');
+        $I->wait(5);
+        //$I->waitForText("You have no payment card setup. Please click the button below to add the card.", 20);
+        $I->see("You have no payment card setup. Please click the button below to add the card.");
+        $I->waitForElementVisible(Locator::find('input', ['value' => 'Add New Payment Details']),8);
+        $I->click("Add New Payment Details");
+        $I->wait(5);
+        $I->fillField('#cardNum', $cardNum);
+        $I->fillField('#expiryDate', $expiryDate);
+        $I->fillField('#cvv', $cvv);
+        $I->fillField('#firstNameID', $firstNameID);
+        $I->fillField('#lastNameID' , $lastNameID);
+        //$I->fillField('#countryID', $countryID);
+        $I->selectOption("select[id=countryID]", $countryID);
+        $I->fillField('#zipID', $zipID);
+        $I->fillField('#billingAddressID', $billingAddressID);
+        $I->fillField('#cityID', $cityID);
+        $I->fillField('#stateID', $stateID);
+        $I->fillField('#phonenumberID', $phonenumberID);
+        $I->click('#saveBtn');
+        $I->wait(5);
+        $I->click('#btnContinue');
+        $I->wait(5);
+
     }
 
-    public function Search($searchInput,$option,$status_check,$pressEnter)
+    public function edit_credictCardSetUp($cvv, $phonenumberID)
+    {
+       $I = $this;
+        $I->amGoingTo('Edit Credit Card');
+        $I->wait(3);
+        $I->click('Settings');
+        $I->wait(4);
+        $I->click('Credit Card Management');
+        $I->wait(5);
+        //$I->waitForElementVisible(Locator::find('a', ['href' => '/buzzyadmin/authorize-net-profiles']), 10);
+        $I->click('Payment');
+        $I->wait(5);
+        //$I->waitForText("You have no payment card setup. Please click the button below to add the card.", 20);
+        $I->click(Locator::find('input', ['value' => 'Edit Payment Details']));
+        $I->wait(5);
+        //$I->fillField('#cvv', $cvv);
+        $I->fillField('#phonenumberID', $phonenumberID);
+        $I->wait(5);
+        $I->click('#saveBtn');
+        $I->wait(5);
+        $I->see('Your information has been saved.');
+        $I->click('#btnContinue');
+        $I->wait(5);
+    }
+
+
+
+public function Search($searchInput,$option,$status_check,$pressEnter)
     {
       $I = $this;
       $I->maximizeWindow();//for phantonjs
@@ -686,208 +994,37 @@ public function Delete_lead_form($delete_button_link,$dontsee)
          $I->wait(4);//wait before starting the next function
     }
 
-    public function cc_positive($cardNum, $expdate,$cvv,$firstName,$lastname,$country,$zip,$address,$city,$state,$phone)
-    {
-      $I = $this;
-        $I->click('Credit Card Management');//click on credit card management
-        $I->wait(2);//wait to start
-        $I->click(Locator::find('a', ['href' => '/buzzyadmin/authorize-net-profiles']));//click on payemet
-        $I->wait(2);
-        $I->click('Add New Payment Details');
-        $I->wait(4);
-        $I->executeJS('$("#lnkPaymentAdd").click()');
-        $I->wait(2);
-        $I->fillField('#cardNum', $cardNum);
-        $I->fillField('#expiryDate', $expdate);
-        $I->fillField('#cvv',$cvv);
-        $I->fillField('#firstNameID',$firstName);
-        $I->fillField('#lastNameID',$lastname);
-       // $option = $I->grabTextFrom('select#countryID option:nth-child(10)');
-        //codecept_debug($option);
-        $I->selectOption("select#countryID", $country);
-       // $I->selectOption('form select[id=countryID]', 'United States of America');
-        $I->fillField('#zipID',$zip);
-        $I->fillField('#billingAddressID',$address);
-        $I->fillField('#cityID',$city);
-        $I->fillField('#stateID',$state);
-        $I->fillField('#phonenumberID',$phone);
-        $I->wait(2);
-        $I->click('SAVE');
-        $I->wait(5);
-        $I->click('#btnContinue');
-        $I->wait(2);
-        
-    }
 
-
-
-Public function cc_edit($expdate,$phone)
+    public function staffhistory($start_date,$end_date,$find,$dontsee)
 {
-    $I = $this;
-        $I->click('Credit Card Management');
-        $I->wait(2);
-        $I->click('Payment');
-        $I->wait(2);
-        $I->click('Manage Payment Details');
-        $I->executeJS('$("#lnkEditExpDateLine0").click()');
-        $I->fillField('#txtExpDateLine0',$expdate);
-        $I->click('#btnSaveExpDateLine0');
-        $I->wait(1);
-       $I->executeJS("$('#collapsePayment0').addClass('in');");
-       $I->wait(3);
-        
-        $I->executeJS('$("#lnkEditPaymentItem0").click()');
-        $I->wait(3);
-        $I->fillField('#cardNum','378282246310005');
-        $I->fillField('#phonenumberID',$phone);
-        $I->wait(2);
-        $I->click('#saveBtn');
-        $I->wait(3);
-        $I->click('#btnContinue');
-        $I->seeInCurrentUrl('authorize-net-profiles');
-        $I->see('**** **** **** 0005');
+   $I = $this;
+   $I->click('Reports');
+   $I->waitForElementVisible(Locator::find('a', ['href' => '/buzzyadmin/reports/staffreport']),4);
+   $I->click(Locator::find('a', ['href' => '/buzzyadmin/reports/staffreport']));
+   $I->waitForElementVisible(Locator::find('button', ['class' => 'btn btn-primary']),5);
+   $I->see('Staff History');
+   $I->see('Redeemer Name');
 
-    
+// search box
 
-
-
-
-
-} 
-Public function cc_delete()
-{
-    $I = $this;
-        $I->click('Credit Card Management');
-        $I->wait(2);
-        $I->click('Payment');
-        $I->wait(2);
-        $I->click('Manage Payment Details');
-         $I->executeJS("$('#collapsePayment0').addClass('in');");
-        $I->click('#lnkDeletePaymentItem0');
-        $I->acceptPopup();
-        $I->wait(3);
-        $I->click('#btnContinue');
-        $I->seeInCurrentUrl('authorize-net-profiles');
-        $I->see('Add New Payment Details');
-        $I->wait(2);
-
-    
-
-
-
-
-
-
-
-
-} 
-
-
-public function add_template($name,$review_points,$rating_points,$fb_points,$gplus_points,$yelp_points,$ratemd_points,$healthgrades_points,$level,$referrer_award_points,$referree_award_points,$level1,$refAwrdPts1,$reAwrdPts1)
-{
-    $I = $this;
-    $I->maximizeWindow(); 
-    $I->click('Templates');
-    $I->waitForText('View All', 3);
-    $I->click('Add Template');
-    $I->seeInCurrentUrl('templates/add');
-    $I->waitForElementVisible('#name',3);
-    $I->fillField('#name',$name);
-    $I->click('Submit');
-    $I->wait(5);
-    
-    $I->waitForElement('#review-points',5);
-    //$I->see($name);
-    $I->makeScreenshot('user_page');
-    $I->fillField('#review-points',$review_points);
-    $I->fillField('#rating-points',$rating_points);
-    $I->fillField('#fb-points',$fb_points);
-    $I->fillField('#gplus-points',$gplus_points);
-    $I->fillField('#yelp-points',$yelp_points);
-    $I->fillField('#ratemd-points',$ratemd_points);
-    $I->fillField('#healthgrades-points',$healthgrades_points);
-    $I->click('Save');
-    $I->waitForText('The template has been saved.');
-    $r=Locator::find('a', ['href' => '#tab-2']);
-    $I->click($r);
-    $I->waitForElementVisible('#submit',4);
-    $I->fillField('#referral-level-name',$level);
-    $I->fillField('#referrer-award-points',$referrer_award_points);
-    $I->fillField('#referree-award-points',$referree_award_points);
-    $I->click('#submit');
- //   $I->waitForElementVisible('refName1',5);
-    $r=Locator::find('input', ['name' => 'refName1']);
-    $I->fillField($r,$level1);
-    $r=Locator::find('input',  ['name' => 'refAwrdPts1']);
-    $I->fillField($r,$refAwrdPts1);
-    $r=locator::find('input', ['name' =>'reAwrdPts1']);
-    $I->fillField($r,$reAwrdPts1);
-
-    $I->wait(4);
-    $I->click('');
-
-
-    
-
-
-
-
-
-
-
-
-
-
-
+   $I->fillField(Locator::find('input', ['class' => 'form-control input-sm']),$find);//tier awards
+   $I->wait(5);
+   //$I->dontSee('Promotion Award');//promotion awards*/
+   /*$xpath=Locator::elementAt('/html/body/div[2]/div/div[3]/div[1]/div/div/div/div[2]/div/div/table/tfoot/tr/th[1]/select', 2);
+      codecept_debug($xpath);
+   $I->selectOption($xpath, 'User 3 Best vendor');
+   $I->dontSee('Best v user User');
+*/
+//Date range
+   $I->click(Locator::find('input', ['class' => 'form-control']));//for date filter
+   $I->see('Apply');
+   $I->see('Cancel');
+   $I->fillField(Locator::find('input', ['name' => 'daterangepicker_start']),$start_date);
+   $I->fillField(Locator::find('input', ['name' => 'daterangepicker_end']),$end_date);
+   $I->click(Locator::find('button', ['class' => 'applyBtn btn btn-small btn-sm btn-success']));
+   $I->click(Locator::find('button', ['class' => 'btn btn-primary']));
+   $I->$I->dontSee('Awarded');
 }
-
-public function register_new_patient($name, $username, $email, $phoneno, $password,$good_plan,$see_good,$see,$no_email){
-        
-        $I = $this;
-        $I->click('Dashboard');
-        $I->waitForElementVisible(Locator::find('a', ['class' => 'btn btn-primary']),5);
-        $I->click(Locator::find('a', ['href' => '#!/addPatient']));
-        $I->wait(5);
-        $I->fillField(Locator::find('input', ['ng-model' => 'register.name']), $name);
-        $I->wait(5);
-        if($no_email=='0'){
-           $I->checkOption(Locator::find('input', ['ng-model' => 'register.noEmail']);
-           $I->wait(5);
-           $I->fillField(Locator::find('input', ['ng-model' => 'register.username']), $username);
-           $I->wait(3);
-           $I->fillField(Locator::find('input', ['ng-model' => 'register.email']), $email);
-           $I->wait(5);
-           
-           $I->fillField(Locator::find('input', ['ng-model' => 'register.phone']), $phoneno);
-           $I->wait(5);
-           $I->fillField(Locator::find('input', ['type' => 'password']), $password);
-           $I->wait(5);
-       }
-        $I->fillField(Locator::find('input', ['ng-model' => 'register.email']), $email);
-        $I->wait(5);
-        $I->fillField(Locator::find('input', ['ng-model' => 'register.username']), $username);
-        $I->fillField(Locator::find('input', ['ng-model' => 'register.phone']), $phoneno);
-        $I->wait(5);
-        $I->fillField(Locator::find('input', ['type' => 'password']), $password);
-        $I->wait(5);
-        $I->click(Locator::find('button', ['class' => 'btn btn-success']));
-        if($good_plan=='0')
-          {
-            $I->waitForElementVisible(Locator::find('button' ,['class' =>'btn btn-primary']));
-            $I->see($see_good);
-          }
-        else
-      {
-        $I->waitForElementVisible(Locator::find('a' ,['href' =>'#!/patient']));
-        $I->see($see);}
-       // $I->click('Dashboard');
-        $I->wait(5);
-        // $I->fillField('Search');
-        // $I->wait(6);
-
-
-    }
-
 
 
     public function activityhistory($plan_id)
@@ -958,66 +1095,9 @@ public function register_new_patient($name, $username, $email, $phoneno, $passwo
         }
     }
 
-public function staffhistory($start_date,$end_date,$find,$dontsee)
-{
-   $I = $this;
-   $I->click('Reports');
-   $I->waitForElementVisible(Locator::find('a', ['href' => '/buzzyadmin/reports/staffreport']),4);
-   $I->click(Locator::find('a', ['href' => '/buzzyadmin/reports/staffreport']));
-   $I->waitForElementVisible(Locator::find('button', ['class' => 'btn btn-primary']),5);
-   $I->see('Staff History');
-   $I->see('Redeemer Name');
+// vendor survey questions
 
-   /*$I->fillField(Locator::find('input', ['class' => 'form-control input-sm']),$find);//tier awards
-   $I->wait(5);
-   $I->dontSee('Promotion Award');//promotion awards*/
-   $xpath=Locator::elementAt('/html/body/div[2]/div/div[3]/div[1]/div/div/div/div[2]/div/div/table/tfoot/tr/th[1]/select', 2);
-      codecept_debug($xpath);
-   $I->selectOption($xpath, 'User 3 Best vendor');
-   $I->dontSee('Best v user User');
-
-  /*  $I->click(Locator::find('input', ['class' => 'form-control']));//for date filter
-   $I->see('Apply');
-   $I->see('Cancel');
-   $I->fillField(Locator::find('input', ['name' => 'daterangepicker_start']),$start_date);
-   $I->fillField(Locator::find('input', ['name' => 'daterangepicker_end']),$end_date);
-   $I->click(Locator::find('button', ['class' => 'applyBtn btn btn-small btn-sm btn-success']));
-   $I->click(Locator::find('button', ['class' => 'btn btn-primary']));
-   $I->$I->dontSee('Awarded');
-*/
-
-
-   //$I->wait(2);
-
-
-
-
-}
-//compliance survey ----not working
-public function survey()
-{
-   $I = $this;
-   $I->click(Locator::find('a', ['ng-click' => 'tabSwitch(4); surveyInit()']));
-  // $I->waitForElementVisible(Locator::find('input', ['class' => 'ng-pristine ng-untouched ng-valid ng-not-empty']),4);
-  // $u=Locator::contains('label', 'No');
-   //codecept_debug($u);
-  // $I->checkOption($u);
-  //  $I->executeJS("$('#collapsePayment0').addClass('in');");
-   //$I->click('//*[@id="swiperNext"]');
-   $I->seeInSource('<div id="swiperNext" class="swiper-button-next"></div>');
- //  $I->click(Locator::find('div', ['id' => 'swiper-button-next']));
-   
-   $I->wait(4);
-   /*$I->click(Locator::find('a', ['href' => '/buzzyadmin/reports/staffreport']));
-   $I->waitForElementVisible(Locator::find('button', ['class' => 'btn btn-primary']),5);
-   $I->see('Staff History');
-   $I->see('Redeemer Name');*/
-
-
-}
-
-
-public function vendor_survey()
+    public function vendor_survey_questions()
 {
    $I = $this;
    $I->click(Locator::find('a', ['href' => '/buzzyadmin/vendor-survey-questions']));
@@ -1034,13 +1114,16 @@ public function vendor_survey()
    $I->pressKey(Locator::firstElement(Locator::find('input', ['class' => 'form-control index changepoints'])),WebDriverKeys::ENTER);
    $I->wait(10);
    $I->seeInField(Locator::firstElement(Locator::find('input', ['class' => 'form-control index changepoints'])),'78');
-   
+   }
 
 
-}
 
 
-public function survey_questions_crud_add($text,$type,$frequency,$pointsforquestions)
+
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////Super admin finctions
+
+   public function questions_crud_add($text,$type,$frequency,$pointsforquestions)
 {
    $I = $this;
    $I->click('Questions');
@@ -1056,7 +1139,7 @@ public function survey_questions_crud_add($text,$type,$frequency,$pointsforquest
    $I->wait(3);
 }
 
-public function survey_questions_crud_view($see1,$see2)
+public function questions_crud_view($see1,$see2)
 {
    $I = $this;
    $I->click('Questions');
@@ -1072,7 +1155,7 @@ public function survey_questions_crud_view($see1,$see2)
    $I->wait(3);
 }
 
-public function survey_questions_crud_edit($text,$pointsedit)
+public function questions_crud_edit($text,$pointsedit)
 {
    $I = $this;
    $I->click('Questions');
@@ -1091,7 +1174,7 @@ public function survey_questions_crud_edit($text,$pointsedit)
    $I->wait(3);
 }
 
-public function survey_questions_crud_delete($text)
+public function questions_crud_delete($text)
 {
    $I = $this;
    $I->click('Questions');
@@ -1108,7 +1191,7 @@ public function survey_questions_crud_delete($text)
 
 
 
-public function survey_questions_crud_add_negative($text,$type,$frequency,$pointsforquestions)
+public function questions_crud_add_negative($text,$type,$frequency,$pointsforquestions)
 {
    $I = $this;
    $I->click('Questions');
@@ -1134,7 +1217,7 @@ public function survey_questions_crud_add_negative($text,$type,$frequency,$point
 
 }
 
-public function survey_questions_crud_edit_negative($text,$frequency,$pointsedit)
+public function questions_crud_edit_negative($text,$frequency,$pointsedit)
 {
    $I = $this;
    $I->click('Questions');
@@ -1168,7 +1251,7 @@ public function survey_questions_crud_edit_negative($text,$frequency,$pointsedit
    $I->wait(3);
 }
 
-public function survey_questions_crud_delete_negative($text)
+public function questions_crud_delete_negative($text)
 {
    $I = $this;
    $I->click('Questions');
@@ -1184,22 +1267,31 @@ public function survey_questions_crud_delete_negative($text)
 }
 
 
+//Validation Function
+public function BuzzyDoc_validations($desc,$input, $attribute,$expected,$message)
+    {
+        $I = $this;
 
+        $I->amGoingTo($desc);
+        $temp= $I->grabAttributeFrom($input, $attribute);
+        codecept_debug($temp);
+        $I->assertEquals($expected, $temp, $message);
+        
 
+    }
 
 
 
     public function Logout()
     {
-$I = $this;
+        $I = $this;
         $I->wait(3);
        // $I->click('/html/body/div[2]/div/div[1]/nav/ul/li/a');
         $I->click('Logout');
-        $I->wait(3);
+        $I->waitForElementVisible('#password',3);
         $I->see('Our patients love the rewards program. ');
         $I->seeInCurrentUrl('users/login');
 
 
     }
-
 }

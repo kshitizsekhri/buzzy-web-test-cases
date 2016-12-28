@@ -9,7 +9,7 @@ modules:
     enabled:
         - Asserts
         - WebDriver:
-            url: http://buzzy.twinspark.co/buzzyadmin/
+            url: http://buzzy.twinspark.co/staging/
             browser: firefox
         - \Helper\BuzzyUi
         
