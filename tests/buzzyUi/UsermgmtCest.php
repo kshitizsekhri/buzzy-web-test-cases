@@ -406,5 +406,100 @@ public function positive_case_for_gift_coupans(TierTester $I)
 
     } 
 
-   
+    public function redemption_edit(BuzzyUiTester $I)
+    {   
+    $I->login('explorerverma4', '12345678');
+    $I->redemptions_bulkUpdate('Ordered/Shipped');
+    }
+
+   public function positive_vendor_email_settings(BuzzyUiTester $I)
+    {
+
+        $I->login('explorerverma4','12345678');
+        $I->positive_add_vendor_email_setting('default','default','ReferralLink','Add Test', 'TESTING',1);
+        $I->wait(4);
+        $I->click('Settings');
+        $I->positive_edit_vendor_email_setting('default','default','ReferralLink','Add Test Subject', 'TESTING FOR A BODY',1);
+        $I->wait(4);
+        $I->click('Settings');
+        $I->positive_view_vendor_email_setting();
+        $I->wait(4);
+        $I->click('Settings');
+        $I->positive_delete_vendor_email_setting();
+        $I->wait(4);
+
+
+    }
+
+     public function negative_vendor_email_settings(BuzzyUiTester $I)
+    {
+
+        $I->login('explorerverma4','12345678');
+        $I->negative_add_vendor_email_setting('default','default','ReferralLink','Add Test Subject', 'TESTING FOR A BODY',1);
+        $I->wait(4);
+        $I->click('Settings');
+        $I->negative_edit_vendor_email_setting('ReferralLink','ReferralLink');   
+
+    }
+
+    public function positive_referrals(BuzzyUiTester $I)
+    {
+        $I->login('divyagupta.dg2+think@gmail.com','12345678');
+        $I->positive_add_referrals('Think inc','aarti.bhardwaj@twinspark.co','aarti.bhardwaj@twinspark.co','new', 'TESTING FOR A BODY', 'description', 'test name', '123456789023');
+        $I->wait(4);
+        $I->click('Settings');
+        $I->positive_view_referrals();
+    }
+
+     public function negative_referrals(BuzzyUiTester $I)
+    {
+        $I->login('divyagupta.dg2+think@gmail.com','12345678');
+        $I->negative_add_referrals('Think inc','aarti.bhardwaj@twinspark.co','aarti.bhardwaj@twinspark.co','new', 'TESTING FOR A BODY', 'description', 'test name', '123456789023');
+    }
+
+    public function referral_leads(BuzzyUiTester $I)
+    {
+        $I->login('divyagupta.dg2+think@gmail.com','12345678');
+        $I->positive_referral_leads(4,'New');
+        $I->click('Settings');
+        $I->positive_view_referral_leads();
+        $I->click('Settings');
+        $I->positive_delete_referral_leads();
+    }
+
+     public function positive_referral_templates(BuzzyUiTester $I)
+    {
+        $I->login('divyagupta.dg2+think@gmail.com','12345678');
+        $I->positive_add_referral_templates('Subject', 'Another description');
+        $I->wait(4);
+        $I->click('Settings');
+        $I->positive_edit_referral_templates('Subject', 'Another description');
+        $I->wait(4);
+        $I->click('Settings');
+        $I->positive_view_referral_templates();
+    }
+    public function negative_referral_templates(BuzzyUiTester $I)
+    {
+        $I->login('divyagupta.dg2+think@gmail.com','12345678');
+        $I->negative_add_referral_templates('Subject', 'Another description');
+        $I->wait(4);
+        $I->click('Settings');
+        $I->negative_edit_referral_templates('Subject', 'Another description');
+     }
+      public function positive_referral_settings(BuzzyUiTester $I)
+    {
+        $I->login('divyagupta.dg2+think@gmail.com','12345678');
+        $I->positive_add_referral_settings('Subject', 20, 30);
+        $I->wait(4);
+        $I->click('Settings');
+        $I->positive_edit_referral_settings('Subject', 200, 300);
+        $I->wait(4);
+        $I->click('Settings');
+        $I->positive_view_referral_settings();
+     }
+     public function negative_referral_settings(BuzzyUiTester $I)
+    {
+        $I->login('divyagupta.dg2+think@gmail.com','12345678');
+         $I->negative_add_referral_settings('Subject', 20, 30);
+    }
 }
