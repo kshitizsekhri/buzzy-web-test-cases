@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"><head><style type="text/css">@charset "UTF-8";[ng\:cloak],[ng-cloak],[data-ng-cloak],[x-ng-cloak],.ng-cloak,.x-ng-cloak,.ng-hide:not(.ng-hide-animate){display:none !important;}ng\:form{display:block;}.ng-animate-shim{visibility:hidden;}.ng-anchor{position:absolute;}</style>
+
+    <meta charset="utf-8" />    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <meta content="IE=edge" http-equiv="X-UA-Compatible" />
+
+    <title>
+        BuzzyDoc | Application:
+        Promotions    </title>
+    <link rel="icon" type="image/x-icon" href="/staging/img/favicon.ico" /><link rel="shortcut icon" type="image/x-icon" href="/staging/img/favicon.ico" />
+    <link href="/staging/css/bootstrap.min.css" rel="stylesheet" />    
+    <link href="/staging/css/plugins/toastr/toastr.min.css" rel="stylesheet" />    <link href="/staging/css/animate.css" rel="stylesheet" />    <link href="/staging/css/style.css" rel="stylesheet" />    
+	<link href="/staging/css/plugins/iCheck/custom.css" rel="stylesheet" />
+	<link href="/staging/css/plugins/steps/jquery.steps.css" rel="stylesheet" />
+
+    <link href="/staging/css/super-admin.css" rel="stylesheet" />        <link href="/staging/css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css" rel="stylesheet" />    
+	<link href="/staging/css/plugins/dataTables/datatables.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.0/css/font-awesome.min.css" />
+    <!-- Gritter -->
+    <script src="/staging/js/jquery-2.1.1.js"></script>
+    <link href="/staging/css/plugins/sweetalert/sweetalert.css" rel="stylesheet" />    <script src="/staging/js/plugins/sweetalert/sweetalert.min.js"></script>
+    <script src="//cdn.tinymce.com/4/tinymce.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular-route.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular-cookies.js"></script>
+
+            </head>
+<body class=" pace-done"><div class="pace  pace-inactive"><div class="pace-progress" style="transform: translate3d(100%, 0px, 0px);" data-progress-text="100%" data-progress="99">
+  <div class="pace-progress-inner"></div>
+</div>
+<div class="pace-activity"></div></div>
+    <div id="wrapper">
+
+    
+
+
+    
+
+<nav role="navigation" class="navbar-default navbar-static-side">
+  <div class="sidebar-collapse">
+    <ul id="side-menu" class="nav metismenu">
+      <li class="nav-header">
+        <div class="dropdown profile-element"> 
+          <span>
+           <img alt="" src="/staging/img/user-small.png" />          </span>
+          <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown">
+            <span class="clear"> 
+              <span class="block m-t-xs"> 
+                <strong class="font-bold">Damon</strong>
+              </span> 
+              <span class="text-muted text-xs block">
+                Staff Admin 
+                  <b class="caret"></b>
+              </span> 
+            </span> 
+          </a>
+          <ul class="dropdown-menu animated fadeInRight m-t-xs">
+              <li><a href="/staging/users/edit/24">Profile</a></li>
+              <li class="divider"></li>
+              <li><a href="/staging/users/logout">Logout</a></li>
+          </ul>
+        </div>
+        <div class="logo-element">
+        BD
+        </div>
+      </li>
+            <li class="">
+        <a href="/staging/users/dashboard"><i class="fa fa-th-large"></i> <span class="nav-label">Dashboard</span></a>
+      </li>
+      
+       <li class="">
+                        <a href="#"><i class="fa fa-cogs"></i> <span class="nav-label">Settings </span><span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level collapse">
+                            <li>
+                                <a href="#">Users <span class="fa arrow"></span></a>
+                                <ul class="nav nav-third-level collapse">
+                                  <li><a href="/staging/users">View All</a></li>
+                                  <li><a href="/staging/users/add">Add User</a></li>
+
+                                </ul>
+                            </li>
+                            <li>
+                              <a href="#">Rewards <span class="fa arrow"></span></a>
+                              <ul class="nav nav-third-level collapse">
+                                  <li class="">
+                                      <a href="#">In-House Rewards <span class="fa arrow"></span></a>
+                                        <ul class="nav nav-fourth-level collapse">
+                                          <li><a href="/staging/legacy-rewards">View All</a></li>
+                                          <li><a href="/staging/legacy-rewards/add">Add Rewards</a></li>
+                                        </ul>
+                                    </li>
+                                                                        <li class="">
+                                      <a href="#">Gift Coupons <span class="fa arrow"></span></a>
+                                      <ul class="nav nav-fourth-level collapse">
+                                        <li><a href="/staging/gift-coupons">View All</a></li>
+                                        <li><a href="/staging/gift-coupons/add">Add Coupons</a></li>
+                                      </ul>
+                                    </li>
+                                                                  </ul>
+                            </li>
+
+                      <li class="">
+                      <a href="#">Vendor Locations <span class="fa arrow"></span></a>
+                      <ul class="nav nav-third-level collapse">
+                      <li><a href="/staging/vendor-locations">View All</a></li>
+                      <li><a href="/staging/vendor-locations/add">Add Vendor Location</a></li>
+                      </ul>
+                      </li>
+
+
+                                <li class="">
+            <a href="#">Referrals <span class="fa arrow"></span></a>
+            <ul class="nav nav-third-level collapse">
+              <li><a href="/staging/referral-templates">Referral Templates</a></li>
+              <li><a href="/staging/vendor-referral-settings">Vendor Referral Settings</a></li>
+            </ul>
+          </li>
+                    <li><a href="/staging/vendor-promotions">Vendor Promotions</a></li>
+
+            
+                    <li class="">
+              <a href="#">Vendor Email Settings <span class="fa arrow"></span></a>
+              <ul class="nav nav-third-level collapse">
+                <li><a href="/staging/vendor-email-settings">View All</a></li>
+                <li><a href="/staging/vendor-email-settings/add">Add Vendor Email</a></li>
+              </ul>
+          </li>
+                        <li>
+              <a href="/staging/vendor-survey-questions">Vendor Survey Questions</a>              </li>
+                      <li class="">
+              <a href="#">Tier Program <span class="fa arrow"></span></a>
+              <ul class="nav nav-third-level collapse">
+                <li><a href="/staging/tiers">Tiers</a></li>
+                                  <li><a href="/staging/tier-perks">Tier Perks</a></li>
+                              </ul>
+          </li>
+          
+          
+          <li class="">
+            <a href="#">Credit Card Management <span class="fa arrow"></span></a>
+            <ul class="nav nav-third-level collapse">
+              <li><a href="/staging/authorize-net-profiles">Payment</a></li>
+            </ul>
+          </li>
+
+                        </ul>
+                    </li>
+
+        <li class="">
+             <a href="#"><i class="fa fa-bar-chart-o"></i> <span class="nav-label">Reports </span><span class="fa arrow"></span></a>
+            <ul class="nav nav-second-level collapse">
+            <li><a href="/staging/vendor-deposit-balances">Vendor Deposit Balance</a></li>
+            <li><a href="/staging/credit-card-charges">Credit Card Charge</a></li>
+            <li><a href="/staging/reports/staffreport">Staff History</a></li>
+            <li>
+              <a href="/staging/legacy-redemptions">Redemptions</a>            </li>
+            <li>
+              <a href="/staging/review-request-statuses">Vendor Reviews</a>            </li>
+                <li>
+                    <a href="#">Referrals <span class="fa arrow"></span></a>
+                    <ul class="nav nav-third-level collapse">
+                        <li><a href="/staging/referrals">Referred People</a></li> 
+                        <li><a href="/staging/referral-leads">Referral Leads</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </li>        
+                   
+
+    </ul>
+  </div>
+</nav>
+
+
+        <div class="gray-bg" id="page-wrapper" style="min-height: 673px;">
+
+        <input type="hidden" value="http://buzzy.twinspark.co/staging/" id="baseUrl" name="baseUrl" />        <div class="row border-bottom">
+            <nav style="margin-bottom: 0" role="navigation" class="navbar navbar-static-top">
+        <div class="navbar-header">
+            <a href="#" class="navbar-minimalize minimalize-styl-2 btn btn-primary "><i class="fa fa-bars"></i> </a>
+            <!--<form role="search" class="navbar-form-custom" action="search_results.html">
+                <div class="form-group">
+                    <input type="text" placeholder="Search for something..." class="form-control" name="top-search" id="top-search">
+                </div>
+            </form> -->
+        </div>
+            <ul class="nav navbar-top-links navbar-right">
+                <li>
+                 <a class="fa fa-sign-out" href="/staging/users/logout">Logout</a>                </li>
+            </ul>
+
+</nav>
+<div class="ibox-content">
+    <div class="alert alert-info"> 
+        Hi ASV, You are linked to a demo account. Please go through this account thoroughly and then switch to Live. Also note that this action cannot be reverted back.                <a onclick="updateVendorToLive()" href="javascript:void(0);" class="alert-link">Switch To Live</a>.
+            </div>
+    </div>
+        </div>
+        <div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2>Promotions</h2>
+        <ol class="breadcrumb">
+            <li>
+                <a href="javascript:void(0)">Home</a>
+            </li>
+            <li>
+                <a href="/staging/Promotions">Promotions</a>            </li>
+                        <li class="active">
+                <strong>View</strong>
+            </li>
+                    </ol>
+    </div>
+</div>            <div class="wrapper wrapper-content animated fadeIn">
+                                          
+                            <div class="row">
+<div class="col-lg-9">
+    <div class="wrapper wrapper-content animated fadeInUp">
+        <div class="ibox">
+            <div class="ibox-content">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="m-b-md">
+                            <h2>Promo Testing</h2>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12">
+                        <dl class="dl-horizontal">
+                        <dt>Vendor Name:</dt> <dd> <span class="label label-primary">ASV</span> </dd>
+                        <dt>Description:</dt> <dd> PromoDesc Testing </dd>
+                        <dt>Points:</dt> <dd> 30 </dd>
+                        <dt>Frequency:</dt> <dd> 7 </dd>
+                            <!-- <dt>Is Deleted:</dt> <dd>No</dd> -->
+                        </dl>
+                    </div>
+                </div> 
+                <div class="row">
+                    <div class="col-lg-12 text-center">
+                    <a class="btn btn-warning" href="http://buzzy.twinspark.co/staging/vendor-promotions">Back</a>                     </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
+                </div>
+        <div class="footer">
+            <div>
+                <strong>Copyright</strong> BuzzyDoc © 2016            </div>
+        </div>
+
+        </div>
+
+    </div>
+
+    <!-- Scripts -->
+    <!-- Metis Menu-->
+
+    <script src="/staging/js/bootstrap.min.js"></script>    <script src="/staging/js/super_admin.js"></script>    <script src="/staging/js/jquery.cookie.js"></script>    <script src="/staging/js/review_settings.js"></script>    
+	<script src="/staging/js/plugins/metisMenu/jquery.metisMenu.js"></script>
+	<script src="/staging/js/plugins/pace/pace.min.js"></script>
+	<script src="/staging/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+	<script src="/staging/js/plugins/toastr/toastr.min.js"></script>
+	<script src="/staging/js/plugins/validator/validator.js"></script>
+	<script src="/staging/js/plugins/staps/jquery.steps.min.js"></script>
+    
+    <!--Dashboard app scripts -->
+    <script src="/staging/js/plugins/dataTables/angular-datatables/jquery.dataTables.min.js"></script>    
+	<script src="/staging/dashboardApp/js/app.js"></script>
+	<script src="/staging/dashboardApp/js/directive.js"></script>
+	<script src="/staging/dashboardApp/js/interceptor.js"></script>
+	<script src="/staging/js/plugins/dataTables/datatables.min.js"></script>
+    <script src="/staging/js/plugins/dataTables/angular-datatables/angular-datatables.directive.js"></script>    <script src="/staging/js/plugins/dataTables/angular-datatables/angular-datatables.instances.js"></script>    <script src="/staging/js/plugins/dataTables/angular-datatables/angular-datatables.util.js"></script>    <script src="/staging/js/plugins/dataTables/angular-datatables/angular-datatables.renderer.js"></script>    <script src="/staging/js/plugins/dataTables/angular-datatables/angular-datatables.factory.js"></script>    <script src="/staging/js/plugins/dataTables/angular-datatables/angular-datatables.options.js"></script>    <script src="/staging/js/plugins/dataTables/angular-datatables/angular-datatables.js"></script>    <!--Dashboard app contollers -->
+    
+	<script src="/staging/dashboardApp/js/controller/menu.js"></script>
+	<script src="/staging/dashboardApp/js/controller/patient.js"></script>
+	<script src="/staging/dashboardApp/js/controller/profile.js"></script>
+	<script src="/staging/dashboardApp/js/controller/redemption.js"></script>
+	<script src="/staging/dashboardApp/js/controller/review.js"></script>
+	<script src="/staging/dashboardApp/js/controller/search.js"></script>
+	<script src="/staging/dashboardApp/js/controller/survey.js"></script>
+	<script src="/staging/dashboardApp/js/controller/tier.js"></script>
+	<script src="/staging/dashboardApp/js/controller/patient_history.js"></script>
+	<script src="/staging/dashboardApp/js/controller/manual.js"></script>
+
+    <!-- Dashboard app factories-->
+    
+	<script src="/staging/dashboardApp/js/factory/patient.js"></script>
+	<script src="/staging/dashboardApp/js/factory/reward_products.js"></script>
+	<script src="/staging/dashboardApp/js/factory/search_results.js"></script>
+	<script src="/staging/dashboardApp/js/factory/vendor.js"></script>
+	<script src="/staging/dashboardApp/js/factory/plan.js"></script>
+	<script src="/staging/dashboardApp/js/factory/gift_coupons.js"></script>
+	<script src="/staging/dashboardApp/js/factory/settings.js"></script>
+	<script src="/staging/dashboardApp/js/factory/isAuthorized.js"></script>
+
+    <script>
+//&lt;![CDATA[
+$(function () {
+  $('#side-menu').metisMenu();
+});
+//]]&gt;
+</script>
+    <script src="/staging/js/inspinia.js"></script>
+       <script>
+           $(function () {
+            $('#side-menu').metisMenu();
+          });
+       </script>
+
+
+</div></div><div style="display:none;margin-top:22%;" class="loading modal">
+	<div class="sk-spinner sk-spinner-wave modal-dialog">
+		<div class="sk-rect1"></div>
+		<div class="sk-rect2"></div>
+		<div class="sk-rect3"></div>
+		<div class="sk-rect4"></div>
+		<div class="sk-rect5"></div>
+	</div>
+</div></body><canvas id="fxdriver-screenshot-canvas" style="display: none;" width="1301" height="673"></canvas></html>

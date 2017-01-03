@@ -1268,7 +1268,7 @@ public function questions_crud_delete_negative($text)
 
 
 //Validation Function
-public function BuzzyDoc_validations($desc,$input, $attribute,$expected,$message)
+      public function BuzzyDoc_validations($desc,$input, $attribute,$expected,$message)
     {
         $I = $this;
 
@@ -1279,8 +1279,516 @@ public function BuzzyDoc_validations($desc,$input, $attribute,$expected,$message
         
 
     }
+     public function redemptions($redemption_status)
+    {
+      $I = $this;
+        $I->click('Reports');
+        $I->wait(3);
+        $I->click('Redemptions');
+        $I->wait(3);
+        $I->click(Locator::lastElement(Locator::find('a', ['class' => 'btn btn-xs btn-warning'])));
+        $I->wait(1);
+        $I->selectOption('form select[name=legacy_redemption_status_id]', $redemption_status);
+        $I->click('Submit');
+        $I->wait(1);
+        $I->seeInCurrentUrl('legacy-redemptions');
+        $I->wait(3);
+    }
+
+     public function redemptions_bulkUpdate($redemption_status, $id)
+    {
+      $I = $this;
+        $I->click('Reports');
+        $I->wait(3);
+        $I->click('Redemptions');
+        $I->wait(3);
+        $I->checkOption(Locator::lastElement(Locator::find('input', ['name' => 'selected_redemptions'])));
+        // $I->checkOption(Locator::elementAt('//table/tbody/tr/td',2));
+        $I->wait(10);
+        $I->selectOption(Locator::find('select',['redemption_id'=>$id]), $redemption_status);
+        $I->wait(1);
+        $I->seeInCurrentUrl('legacy-redemptions');
+        $I->wait(3);
+    }
+
+    public function positive_add_vendor_email_setting($layout, $template, $event, $subject, $body, $status)
+    {
+        $I = $this;
+        $I->click('Settings');
+        $I->wait(3);
+        $I->click('Vendor Email Settings');
+        $I->wait(2);
+        $I->click('Add Vendor Email');
+        $I->wait(2);
+        $I->selectOption('form select[name=email_layout_id]', $layout);
+        $I->wait(2);
+        $I->selectOption('form select[name=email_template_id]', $template);
+        $I->wait(2);
+        $I->selectOption('select#event-id', $event);
+        $I->wait(2);
+        $I->fillField('#subject',$subject); 
+        $x = $I->grabAttributeFrom('//iframe', 'id');
+        $I->switchToIframe($x); 
+        $I->fillField('#tinymce', $body);
+        $I->wait(2);
+        $I->switchToIframe();
+        $I->wait(3);
+        $I->click('Submit');
+        $I->wait(3);
+        $I->seeInCurrentUrl('vendor-email-settings');
+        
+    }
+
+    public function positive_edit_vendor_email_setting($layout, $template, $event, $subject, $body, $status)
+    {
+        $I = $this;
+        $I->wait(4);
+        $I->click('Settings');
+        $I->wait(3);
+        $I->click('Vendor Email Settings');
+        $I->wait(2);
+        $I->click(Locator::find('a', ['href' => '/staging/vendor-email-settings'])); //Edit Vendor Email Settings  
+        $I->wait(4);
+        $I->click(Locator::lastElement(Locator::find('a', ['class' => 'btn btn-xs btn-warning']))); 
+        $I->wait(4);  
+        $I->selectOption('form select[name=email_layout_id]', $layout);
+        $I->wait(2);
+        $I->selectOption('form select[name=email_template_id]', $template);
+        $I->wait(2);
+        $I->selectOption('select#event-id', $event);
+        $I->wait(2);
+        $I->fillField('#subject',$subject); 
+        $x = $I->grabAttributeFrom('//iframe', 'id');
+        $I->switchToIframe($x); 
+        $I->fillField('#tinymce', $body);
+        $I->wait(2);
+        $I->switchToIframe();
+        $I->wait(3);
+        $I->click('Submit');
+        $I->wait(3);
+        $I->seeInCurrentUrl('vendor-email-settings');
+    }
+
+    public function positive_view_vendor_email_setting()
+    {
+        $I = $this;
+        $I->wait(4);
+        $I->click('Settings');
+        $I->wait(3);
+        $I->click('Vendor Email Settings');
+        $I->wait(2);
+        $I->click(Locator::find('a', ['href' => '/staging/vendor-email-settings'])); //View Vendor Email Settings
+        $I->wait(4);
+        $I->click(Locator::lastElement(Locator::find('a', ['class' => 'btn btn-xs btn-success'])));   
+        $I->wait(3);
+        $I->click('Back');
+        $I->seeInCurrentUrl('vendor-email-settings');
+    }
+
+    public function positive_delete_vendor_email_setting()
+    {
+        $I = $this;
+        $I->wait(4);
+        $I->click('Settings');
+        $I->wait(3);
+        $I->click('Vendor Email Settings');
+        $I->wait(2);
+        $I->click(Locator::find('a', ['href' => '/staging/vendor-email-settings'])); //Delete Vendor Email Settings
+        $I->wait(4);
+        $I->click(Locator::elementAt(Locator::find('a', ['class' => 'btn btn-sm btn-danger fa fa-trash-o fa-fh']),-1));
+        $I->wait(2);
+        $I->seeInPopup('Are you sure you want to delete');
+        $I->wait(3);
+        $I->acceptPopup();  
+    }
+
+    public function negative_add_vendor_email_setting($layout, $template, $event, $subject, $body, $status)
+    {
+        $I = $this;
+        // $I->wait(4);
+        $I->click('Settings');
+        $I->wait(3);
+        $I->click('Vendor Email Settings');
+        $I->wait(2);
+        $I->click('Add Vendor Email');
+        $I->wait(2);
+        $I->click('Submit');
+        $I->selectOption('form select[name=email_layout_id]', $layout);
+        $I->click('Submit');
+        $I->selectOption('form select[name=email_template_id]', $template);
+        $I->click('Submit');
+        $I->BuzzyDoc_validations('required validation verified for event id ','#event-id','required','true','required validation verified for event id ');
+        $I->click('Submit');
+        $I->selectOption('select#event-id', $event);
+        $I->click('Submit');
+        $I->BuzzyDoc_validations('required validation verified for subject ','#subject','required','true','required validation verified for subject');
+        $I->click('Submit');
+        $I->wait(4);
+        $I->fillField('#subject',$subject);
+        $I->click('Submit');
+        $I->wait(4); 
+        $I->see('This field cannot be left empty');
+        $I->click('Cancel');
+
+    }
+
+    public function negative_edit_vendor_email_setting()
+    {
+        $I = $this;
+        $I->wait(4);
+        $I->click('Settings');
+        $I->wait(3);
+        $I->click('Vendor Email Settings');
+        $I->wait(2);
+        $I->click(Locator::find('a', ['href' => '/staging/vendor-email-settings'])); //Edit Vendor Email Settings  
+        $I->wait(4);
+        $I->click(Locator::lastElement(Locator::find('a', ['class' => 'btn btn-xs btn-warning']))); 
+        $I->wait(4);
+        $I->BuzzyDoc_validations('required validation verified for event id ','#event-id','required','true','required validation verified for event id ');
 
 
+    }
+
+    public function positive_add_referrals($vendorId, $referFrom, $referTo, $templateName, $subject, $description, $name, $phone )
+    {
+        $I = $this;
+        $I->wait(4);
+        /*$I->click('Reports');
+        $I->wait(2);
+        $I->click('Referred People');
+        $I->click(Locator::find('a', ['href' => '/staging/referrals/add']));
+        $I->wait(8);*/
+        $I->amOnPage('/referrals/add');
+        $I->selectOption('form select[name=vendor_id]', $vendorId);
+        $I->wait(2);
+        $I->fillField('#refer-from',$referFrom);
+        $I->wait(2);
+        $I->fillField('#refer-to',$referTo);
+        $I->wait(2);
+        $I->selectOption('form select[name=get_template_name]', $templateName); 
+        $I->wait(2);
+        $I->fillField('#subject',$subject);
+        $I->wait(2);
+        $I->fillField('#description',$description);
+        $I->wait(2);
+        $I->fillField('#name',$name);
+        $I->wait(2);
+        $I->fillField('#phone',$phone);
+        $I->click('Submit');
+        $I->wait(3);
+        
+    }
+
+    public function positive_view_referrals()
+    {
+        $I = $this;
+        // $I->wait(4);
+        // $I->click('Reports');
+        // $I->wait(3);
+        // $I->click('Referral Settings');
+        // $I->wait(2);
+        // $I->click(Locator::find('a', ['href' => '/staging/referrals'])); //View Referrals
+        // $I->wait(4);
+        $I->amOnPage('/referrals');
+        $I->click(Locator::lastElement(Locator::find('a', ['class' => 'btn btn-xs btn-success'])));   
+        $I->wait(3);
+        $I->click('Back');
+        $I->seeInCurrentUrl('referrals');
+    }
+
+    public function negative_add_referrals($vendorId, $referFrom, $referTo, $templateName, $subject, $description, $name, $phone )
+    {
+        $I = $this;
+        $I->wait(4);
+        /*$I->click('Reports');
+        $I->wait(2);
+        $I->click('Referred People');
+        $I->click(Locator::find('a', ['href' => '/staging/referrals/add']));
+        $I->wait(8);*/
+        $I->amOnPage('/referrals/add');
+        $I->selectOption('form select[name=vendor_id]', $vendorId);
+        $I->wait(2);
+        $I->click('Submit');
+        $I->BuzzyDoc_validations('required validation verified for refer from ','#refer-from','required','true','required validation verified for refer from ');
+        $I->click('Submit');
+        $I->fillField('#refer-from',$referFrom);
+        $I->wait(2);
+        $I->click('Submit');
+        $I->BuzzyDoc_validations('required validation verified for refer from ','#refer-from','required','true','required validation verified for refer from ');
+        $I->click('Submit');
+        $I->fillField('#refer-to',$referTo);
+        $I->wait(2);
+        $I->click('Submit');
+        $I->selectOption('form select[name=get_template_name]', $templateName); 
+        $I->wait(2);
+        $I->click('Submit');
+        $I->BuzzyDoc_validations('required validation verified for subject ','#subject','required','true','required validation verified for subject');
+        $I->click('Submit');
+        $I->fillField('#subject',$subject);
+        $I->click('Submit');
+        $I->wait(2);
+        $I->BuzzyDoc_validations('required validation verified for description ','#description','required','true','required validation verified for description');
+        $I->click('Submit');
+        $I->fillField('#description',$description);
+        $I->click('Submit');
+        $I->wait(2);
+        $I->BuzzyDoc_validations('required validation verified for name ','#name','required','true','required validation verified for name');
+        $I->click('Submit');
+        $I->fillField('#name',$name);
+        $I->wait(2);
+        $I->click('Cancel');
+        $I->wait(3);
+        
+    }
+
+     public function positive_referral_leads($id, $referralSetting)
+    {
+      $I = $this;
+      $I->wait(4);
+      /*$I->click('Reports');
+        $I->wait(2);
+        $I->click('Referred Leads');
+        $I->click(Locator::find('a', ['href' => '/staging/referral-leads']));
+        $I->wait(2);*/
+        $I->amOnPage('/referral-leads');
+        $I->wait(3);
+        $I->selectOption(Locator::find('select',['referral_lead_id'=>$id]), $referralSetting);
+        $I->seeInCurrentUrl('referral-leads');
+        $I->wait(3);
+    }
+
+    public function positive_view_referral_leads()
+    {
+        $I = $this;
+        $I->wait(4);
+        /*$I->click('Reports');
+        $I->wait(2);
+        $I->click('Referred Leads');
+        $I->click(Locator::find('a', ['href' => '/staging/referral-leads']));
+        $I->wait(2);*/
+        $I->amOnPage('/referral-leads');
+        $I->click(Locator::lastElement(Locator::find('a', ['class' => 'btn btn-xs btn-success'])));   
+        $I->wait(3);
+        $I->click('Back');
+        $I->seeInCurrentUrl('referral-leads');
+    }
+
+    public function positive_delete_referral_leads()
+    {
+        $I = $this;
+        $I->wait(4);
+        /*$I->click('Reports');
+        $I->wait(2);
+        $I->click('Referred Leads');
+        $I->click(Locator::find('a', ['href' => '/staging/referral-leads']));
+        $I->wait(2);*/
+        $I->amOnPage('/referral-leads');
+        $I->wait(2);
+        $I->click(Locator::elementAt(Locator::find('a', ['class' => 'btn btn-sm btn-danger fa fa-trash-o fa-fh']),-1));
+        $I->wait(2);
+        $I->seeInPopup('Are you sure you want to delete');
+        $I->wait(3);
+        $I->acceptPopup();  
+    }
+
+    public function positive_add_referral_templates($subject, $description)
+    {
+         $I = $this;
+        $I->click('Settings');
+        $I->wait(3);
+        $I->click('Referrals');
+        $I->wait(2);
+        $I->amOnPage('/referral-templates/add');
+        $I->seeInCurrentUrl('referral-templates/add');
+        // $I->click('Add New Template');
+        $I->wait(2);
+        $I->fillField('#subject',$subject);
+        $I->wait(2);
+        $I->fillField('#description',$description); 
+        $I->wait(2);
+        $I->click('Submit');
+        $I->wait(3);
+        
+    }
+
+    public function positive_edit_referral_templates($subject, $description)
+    {
+        $I = $this;
+        $I->wait(3);
+        $I->click('Settings');
+        $I->wait(3);
+        $I->click('Referrals');
+        $I->wait(2);
+        $I->click(Locator::find('a', ['href' => '/staging/referral-templates'])); //Edit Referral Templates  
+        $I->wait(4);
+        $I->click(Locator::lastElement(Locator::find('a', ['class' => 'btn btn-xs btn-warning']))); 
+        $I->wait(4);  
+        $I->fillField('#subject',$subject);
+        $I->wait(2);
+        $I->fillField('#description',$description); 
+        $I->wait(3);
+        $I->click('Submit');
+        $I->wait(3);
+        $I->seeInCurrentUrl('referral-templates');
+    }
+
+     public function positive_view_referral_templates()
+    {
+        $I = $this;
+        $I->wait(4);
+        $I->click('Settings');
+        $I->wait(3);
+        $I->click('Referrals');
+        $I->wait(2);
+        $I->click(Locator::find('a', ['href' => '/staging/referral-templates'])); //View Vendor Email Settings
+        $I->wait(4);
+        $I->click(Locator::lastElement(Locator::find('a', ['class' => 'btn btn-xs btn-success'])));   
+        $I->wait(3);
+        $I->click('Back');
+        $I->seeInCurrentUrl('referral-templates');
+    }
+
+    public function negative_add_referral_templates($subject, $description)
+    {
+        $I = $this;
+        $I->click('Settings');
+        $I->wait(3);
+        $I->click('Referrals');
+        $I->wait(2);
+        $I->amOnPage('/referral-templates/add');
+        $I->seeInCurrentUrl('referral-templates/add');
+        // $I->click('Add New Template');
+        $I->wait(2);
+        $I->click('Submit');
+        $I->BuzzyDoc_validations('required validation verified for subject ','#subject','required','true','required validation verified for subject');
+        $I->click('Submit');
+        $I->fillField('#subject',$subject);
+        $I->click('Submit');
+        $I->wait(2);
+        $I->click('Submit');
+        $I->BuzzyDoc_validations('required validation verified for description ','#description','required','true','required validation verified for description');
+        $I->click('Submit');
+        $I->fillField('#description',$description); 
+        $I->wait(3);
+        $I->click('Cancel');
+        $I->wait(3);
+        
+    }
+
+     public function negative_edit_referral_templates($subject, $description)
+    {
+        $I = $this;
+        $I->click('Settings');
+        $I->wait(3);
+        $I->click('Referrals');
+        $I->wait(2);
+        $I->click(Locator::find('a', ['href' => '/staging/referral-templates'])); //Edit Referral Templates  
+        $I->wait(2);
+        $I->click(Locator::lastElement(Locator::find('a', ['class' => 'btn btn-xs btn-warning'])));
+         $I->wait(2);
+        $I->click('Submit');
+        $I->BuzzyDoc_validations('required validation verified for subject ','#subject','required','true','required validation verified for subject');
+        $I->click('Submit');
+        $I->fillField('#subject',$subject);
+        $I->click('Submit');
+        $I->wait(2);
+        $I->BuzzyDoc_validations('required validation verified for description ','#description','required','true','required validation verified for description');
+        $I->click('Submit');
+        $I->fillField('#description',$description); 
+        $I->wait(3);
+        $I->click('Cancel');
+        $I->wait(3);
+        
+    }
+
+    public function positive_add_referral_settings($referral_level_name, $referrer_award_points, $referree_award_points)
+    {
+        $I = $this;
+        $I->click('Settings');
+        $I->wait(3);
+        $I->click('Referrals');
+        $I->wait(2);
+        $I->amOnPage('/vendor-referral-settings/add');
+        $I->seeInCurrentUrl('vendor-referral-settings/add');
+        $I->wait(2);
+        $I->fillField('#referral-level-name',$referral_level_name);
+        $I->wait(2);
+        $I->fillField('#referrer-award-points',$referrer_award_points); 
+        $I->wait(2);
+        $I->fillField('#referree-award-points',$referree_award_points); 
+        $I->wait(2);
+        $I->click('Submit');
+        $I->wait(3);
+        
+    }
+
+    public function positive_edit_referral_settings($referral_level_name, $referrer_award_points, $referree_award_points)
+    {
+        $I = $this;
+        $I->wait(4);
+        $I->click('Settings');
+        $I->wait(3);
+        $I->click('Referrals');
+        $I->wait(2);
+        $I->click(Locator::find('a', ['href' => '/staging/vendor-referral-settings'])); //Edit Referral Templates  
+        $I->wait(4);
+        $I->click(Locator::lastElement(Locator::find('a', ['class' => 'btn btn-xs btn-warning']))); 
+        $I->wait(2);
+        $I->fillField('#referral-level-name',$referral_level_name);
+        $I->wait(2);
+        $I->fillField('#referrer-award-points',$referrer_award_points); 
+        $I->wait(2);
+        $I->fillField('#referree-award-points',$referree_award_points); 
+        $I->wait(2);
+        $I->click('Submit');
+        $I->wait(3);
+        
+    }
+
+    public function positive_view_referral_settings()
+    {
+        $I = $this;
+        $I->wait(4);
+        $I->click('Settings');
+        $I->wait(3);
+        $I->click('Referrals');
+        $I->wait(2);
+        $I->click(Locator::find('a', ['href' => '/staging/vendor-referral-settings'])); //View Vendor Email Settings
+        $I->wait(4);
+        $I->click(Locator::lastElement(Locator::find('a', ['class' => 'btn btn-xs btn-success'])));   
+        $I->wait(3);
+        $I->click('Back');
+        $I->seeInCurrentUrl('vendor-referral-settings');
+    }
+
+    public function negative_add_referral_settings($referral_level_name, $referrer_award_points, $referree_award_points)
+    {
+        $I = $this;
+        $I->wait(3);
+        $I->click('Settings');
+        $I->wait(3);
+        $I->click('Referrals');
+        $I->wait(2);
+        $I->amOnPage('/vendor-referral-settings/add');
+        $I->seeInCurrentUrl('vendor-referral-settings/add');
+        $I->wait(2);
+        $I->click('Submit');
+        $I->BuzzyDoc_validations('required validation verified for referral-level-name ','#referral-level-name','required','true','required validation verified for referral-level-name');
+        $I->click('Submit');
+        $I->fillField('#referral-level-name',$referral_level_name);
+        $I->click('Submit');
+        $I->BuzzyDoc_validations('required validation verified for referrer-award-points ','#referrer-award-points','required','true','required validation verified for referrer-award-points');
+        $I->click('Submit');
+        $I->fillField('#referrer-award-points',$referrer_award_points);
+        $I->click('Submit');
+        $I->BuzzyDoc_validations('required validation verified for referree-award-points ','#referree-award-points','required','true','required validation verified for referree-award-points');
+        $I->click('Submit');
+        $I->fillField('#referree-award-points',$referree_award_points); 
+        $I->wait(3);
+        $I->click('Cancel');
+        $I->wait(3);
+        
+    }
 
     public function Logout()
     {
@@ -1291,7 +1799,6 @@ public function BuzzyDoc_validations($desc,$input, $attribute,$expected,$message
         $I->waitForElementVisible('#password',3);
         $I->see('Our patients love the rewards program. ');
         $I->seeInCurrentUrl('users/login');
-
 
     }
 }
