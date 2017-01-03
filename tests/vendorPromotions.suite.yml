@@ -1,0 +1,8 @@
+class_name: VendorPromotionsTester
+modules:
+    enabled:
+        - Asserts
+        - WebDriver:
+            url: http://buzzy.twinspark.co/staging
+            browser: firefox
+        - \Helper\VendorPromotions
