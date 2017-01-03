@@ -1,2 +1,1 @@
-tests/buzzyUi/UsermgmtCest.php:gift_coupon_issue
-tests/buzzyUi/UsermgmtCest.php:gift_coupon_issue_negative
+tests/vendorPromotions/vendorPromotionsCest.php:negative_case_for_promotions

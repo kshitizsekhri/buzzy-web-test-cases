@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"><head><style type="text/css">@charset "UTF-8";[ng\:cloak],[ng-cloak],[data-ng-cloak],[x-ng-cloak],.ng-cloak,.x-ng-cloak,.ng-hide:not(.ng-hide-animate){display:none !important;}ng\:form{display:block;}.ng-animate-shim{visibility:hidden;}.ng-anchor{position:absolute;}</style>
+
+    <meta charset="utf-8" />    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <meta content="IE=edge" http-equiv="X-UA-Compatible" />
+
+    <title>
+        BuzzyDoc | Application:
+        Users    </title>
+    <link rel="icon" type="image/x-icon" href="/staging/img/favicon.ico" /><link rel="shortcut icon" type="image/x-icon" href="/staging/img/favicon.ico" />
+    <link href="/staging/css/bootstrap.min.css" rel="stylesheet" />    
+    <link href="/staging/css/plugins/toastr/toastr.min.css" rel="stylesheet" />    <link href="/staging/css/animate.css" rel="stylesheet" />    <link href="/staging/css/style.css" rel="stylesheet" />    
+	<link href="/staging/css/plugins/iCheck/custom.css" rel="stylesheet" />
+	<link href="/staging/css/plugins/steps/jquery.steps.css" rel="stylesheet" />
+
+    <link href="/staging/css/super-admin.css" rel="stylesheet" />        <link href="/staging/css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css" rel="stylesheet" />    
+	<link href="/staging/css/plugins/dataTables/datatables.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.0/css/font-awesome.min.css" />
+    <!-- Gritter -->
+    <script src="/staging/js/jquery-2.1.1.js"></script>
+    <link href="/staging/css/plugins/sweetalert/sweetalert.css" rel="stylesheet" />    <script src="/staging/js/plugins/sweetalert/sweetalert.min.js"></script>
+    <script src="//cdn.tinymce.com/4/tinymce.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular-route.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular-cookies.js"></script>
+
+            </head>
+<body class="pace-done stop-scrolling"><div class="pace  pace-inactive"><div class="pace-progress" style="transform: translate3d(100%, 0px, 0px);" data-progress-text="100%" data-progress="99">
+  <div class="pace-progress-inner"></div>
+</div>
+<div class="pace-activity"></div></div>
+    <div id="wrapper">
+
+    
+
+
+    
+
+<nav role="navigation" class="navbar-default navbar-static-side">
+  <div class="sidebar-collapse">
+    <ul id="side-menu" class="nav metismenu">
+      <li class="nav-header">
+        <div class="dropdown profile-element"> 
+          <span>
+           <img alt="" src="/staging/img/user-small.png" />          </span>
+          <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown">
+            <span class="clear"> 
+              <span class="block m-t-xs"> 
+                <strong class="font-bold">Damon</strong>
+              </span> 
+              <span class="text-muted text-xs block">
+                Staff Admin 
+                  <b class="caret"></b>
+              </span> 
+            </span> 
+          </a>
+          <ul class="dropdown-menu animated fadeInRight m-t-xs">
+              <li><a href="/staging/users/edit/24">Profile</a></li>
+              <li class="divider"></li>
+              <li><a href="/staging/users/logout">Logout</a></li>
+          </ul>
+        </div>
+        <div class="logo-element">
+        BD
+        </div>
+      </li>
+            <li class="active">
+        <a href="/staging/users/dashboard"><i class="fa fa-th-large"></i> <span class="nav-label">Dashboard</span></a>
+      </li>
+      
+       <li class="">
+                        <a href="#"><i class="fa fa-cogs"></i> <span class="nav-label">Settings </span><span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level collapse">
+                            <li>
+                                <a href="#">Users <span class="fa arrow"></span></a>
+                                <ul class="nav nav-third-level collapse">
+                                  <li><a href="/staging/users">View All</a></li>
+                                  <li><a href="/staging/users/add">Add User</a></li>
+
+                                </ul>
+                            </li>
+                            <li>
+                              <a href="#">Rewards <span class="fa arrow"></span></a>
+                              <ul class="nav nav-third-level collapse">
+                                  <li class="">
+                                      <a href="#">In-House Rewards <span class="fa arrow"></span></a>
+                                        <ul class="nav nav-fourth-level collapse">
+                                          <li><a href="/staging/legacy-rewards">View All</a></li>
+                                          <li><a href="/staging/legacy-rewards/add">Add Rewards</a></li>
+                                        </ul>
+                                    </li>
+                                                                        <li class="">
+                                      <a href="#">Gift Coupons <span class="fa arrow"></span></a>
+                                      <ul class="nav nav-fourth-level collapse">
+                                        <li><a href="/staging/gift-coupons">View All</a></li>
+                                        <li><a href="/staging/gift-coupons/add">Add Coupons</a></li>
+                                      </ul>
+                                    </li>
+                                                                  </ul>
+                            </li>
+
+                      <li class="">
+                      <a href="#">Vendor Locations <span class="fa arrow"></span></a>
+                      <ul class="nav nav-third-level collapse">
+                      <li><a href="/staging/vendor-locations">View All</a></li>
+                      <li><a href="/staging/vendor-locations/add">Add Vendor Location</a></li>
+                      </ul>
+                      </li>
+
+
+                                <li class="">
+            <a href="#">Referrals <span class="fa arrow"></span></a>
+            <ul class="nav nav-third-level collapse">
+              <li><a href="/staging/referral-templates">Referral Templates</a></li>
+              <li><a href="/staging/vendor-referral-settings">Vendor Referral Settings</a></li>
+            </ul>
+          </li>
+                    <li><a href="/staging/vendor-promotions">Vendor Promotions</a></li>
+
+            
+                    <li class="">
+              <a href="#">Vendor Email Settings <span class="fa arrow"></span></a>
+              <ul class="nav nav-third-level collapse">
+                <li><a href="/staging/vendor-email-settings">View All</a></li>
+                <li><a href="/staging/vendor-email-settings/add">Add Vendor Email</a></li>
+              </ul>
+          </li>
+                        <li>
+              <a href="/staging/vendor-survey-questions">Vendor Survey Questions</a>              </li>
+                      <li class="">
+              <a href="#">Tier Program <span class="fa arrow"></span></a>
+              <ul class="nav nav-third-level collapse">
+                <li><a href="/staging/tiers">Tiers</a></li>
+                                  <li><a href="/staging/tier-perks">Tier Perks</a></li>
+                              </ul>
+          </li>
+          
+          
+          <li class="">
+            <a href="#">Credit Card Management <span class="fa arrow"></span></a>
+            <ul class="nav nav-third-level collapse">
+              <li><a href="/staging/authorize-net-profiles">Payment</a></li>
+            </ul>
+          </li>
+
+                        </ul>
+                    </li>
+
+        <li class="">
+             <a href="#"><i class="fa fa-bar-chart-o"></i> <span class="nav-label">Reports </span><span class="fa arrow"></span></a>
+            <ul class="nav nav-second-level collapse">
+            <li><a href="/staging/vendor-deposit-balances">Vendor Deposit Balance</a></li>
+            <li><a href="/staging/credit-card-charges">Credit Card Charge</a></li>
+            <li><a href="/staging/reports/staffreport">Staff History</a></li>
+            <li>
+              <a href="/staging/legacy-redemptions">Redemptions</a>            </li>
+            <li>
+              <a href="/staging/review-request-statuses">Vendor Reviews</a>            </li>
+                <li>
+                    <a href="#">Referrals <span class="fa arrow"></span></a>
+                    <ul class="nav nav-third-level collapse">
+                        <li><a href="/staging/referrals">Referred People</a></li> 
+                        <li><a href="/staging/referral-leads">Referral Leads</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </li>        
+                   
+
+    </ul>
+  </div>
+</nav>
+
+
+        <div class="gray-bg" id="page-wrapper" style="min-height: 673px;">
+
+        <input type="hidden" value="http://buzzy.twinspark.co/staging/" id="baseUrl" name="baseUrl" />        <div class="row border-bottom">
+            <nav style="margin-bottom: 0" role="navigation" class="navbar navbar-static-top">
+        <div class="navbar-header">
+            <a href="#" class="navbar-minimalize minimalize-styl-2 btn btn-primary "><i class="fa fa-bars"></i> </a>
+            <!--<form role="search" class="navbar-form-custom" action="search_results.html">
+                <div class="form-group">
+                    <input type="text" placeholder="Search for something..." class="form-control" name="top-search" id="top-search">
+                </div>
+            </form> -->
+        </div>
+            <ul class="nav navbar-top-links navbar-right">
+                <li>
+                 <a class="fa fa-sign-out" href="/staging/users/logout">Logout</a>                </li>
+            </ul>
+
+</nav>
+<div class="ibox-content">
+    <div class="alert alert-info"> 
+        Hi ASV, You are linked to a demo account. Please go through this account thoroughly and then switch to Live. Also note that this action cannot be reverted back.                <a onclick="updateVendorToLive()" href="javascript:void(0);" class="alert-link">Switch To Live</a>.
+            </div>
+    </div>
+        </div>
+        <div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2>Users</h2>
+        <ol class="breadcrumb">
+            <li>
+                <a href="javascript:void(0)">Home</a>
+            </li>
+            <li>
+                <a href="/staging/Users">Users</a>            </li>
+                        <li class="active">
+                <strong>Dashboard</strong>
+            </li>
+                    </ol>
+    </div>
+</div>            <div class="wrapper wrapper-content animated fadeIn">
+                                          
+                            <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/3.4.0/css/swiper.css"> -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/3.4.0/css/swiper.min.css" rel="stylesheet" />
+ 
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/3.4.0/js/swiper.js"></script> -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/3.4.0/js/swiper.min.js"></script>
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/3.4.0/js/swiper.jquery.js"></script> -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/3.4.0/js/swiper.jquery.min.js"></script>
+
+<div ng-app="dashboardApp" class="row ng-scope">
+	<div ng-controller="MenuController as MenuCtrl" class="ng-scope">
+		<div ng-show="showMenu" class="">
+			<div class="btn-group">
+			    <a ng-show="auth('awardPoints')" href="#%21/patient" class=""><button type="button" class="btn btn-white" ng-class="getClass('/patient')">Award Points</button></a>
+			    <a href="#%21/redeem"><button type="button" class="btn btn-primary" ng-class="getClass('/redeem')">Redeem</button></a>
+			    <a href="#%21/"><button type="button" class="btn btn-white" ng-class="getClass('/search')">Search</button></a>
+			    <a ng-show="showActivityHistory" href="#%21/activityHistory" class=""><button type="button" class="btn btn-white" ng-class="getClass('/activityHistory')">Activity History</button></a>
+			</div>
+			<div class="btn-group">
+			    <button aria-expanded="false" class="btn btn-default dropdown-toggle" data-toggle="dropdown">Action<span class="caret"></span></button>
+			    <ul class="dropdown-menu">
+			        <li><a href="#%21/requestReview">Request Review</a></li>
+			        <!-- <li><a href="#!/">Send Account Information</a></li> -->
+			        <!-- <li><a href="#!/">Verification Email</a></li> -->
+			        <!-- <li><a href="#!/">Lost Card</a></li> -->
+			        <!-- <li><a href="#!/editProfile">Edit Profile</a></li>
+			        <li class="divider"></li>
+			        <li><a href="#!/">Separated link</a></li> -->
+			    </ul>
+			</div>
+			<!-- ngIf: showWelcome --><div ng-if="showWelcome" class="btn-group ng-scope">
+				<button type="button" ng-click="sendWelcomeEmail()" class="btn btn-sm btn-success">
+					<i class="fa fa-envelope"></i> Send Welcome Email
+				</button>
+				 
+				<i title="This is a new patient &amp; you've not sent a welcome email. Click the button to send a welcome email" class="fa fa-lg fa-info-circle"></i>
+			</div><!-- end ngIf: showWelcome -->
+		</div>
+	
+		<!-- Angular App -->
+		<!-- ngView: --><div ng-view="" class="ng-scope"><div ng-controller="RedemptionController as RdmCtrl" class="tabs-container ng-scope">
+
+    <div ng-show="!pdata.email.length &amp;&amp; RdmCtrl.auth('emailMessage')" class="ng-hide">
+    <h4>No Email is set for the Patient. <a href="#%21/editProfile">Click here</a> to update patient's profile.</h4>
+
+    </div>
+    <div ng-show="pdata.email.length || !auth('emailMessage') ">
+        <div>
+            <ul class="nav nav-tabs">
+                <li ng-init="tab1=true" ng-class="{'active':tab1}" class="active"><a ng-click="RdmCtrl.tabSwitch(1)" data-toggle="tab"> Products</a></li>
+                <li ng-show="RdmCtrl.auth('redeemwallet') &amp;&amp; showAmazonTango" ng-class="{'active':tab2}"><a ng-click="RdmCtrl.tabSwitch(2)" data-toggle="tab">Amazon / Tango</a></li>
+                <li ng-show="RdmCtrl.auth('instantGiftCredit')" ng-class="{'active':tab3}"><a ng-click="RdmCtrl.tabSwitch(3)" data-toggle="tab">Instant Gift Credit</a></li>
+                <li ng-show="RdmCtrl.auth('giftCoupons')" ng-class="{'active':tab4}"><a ng-click="RdmCtrl.tabSwitch(4)" data-toggle="tab">Gift Coupons</a></li>
+            </ul>
+            <div class="tab-content ">
+
+                <div ng-class="{'active':tab1, 'tab-pane': true}" id="tab-1" class="active tab-pane">
+                    <div class="panel-body">
+                        <div class="row">
+                            <!-- ngRepeat: reward in rewards --><!-- ngIf: reward.product_type_id == 2 --><!-- end ngRepeat: reward in rewards --><!-- ngIf: reward.product_type_id == 2 --><!-- end ngRepeat: reward in rewards --><!-- ngIf: reward.product_type_id == 2 --><!-- end ngRepeat: reward in rewards --><!-- ngIf: reward.product_type_id == 2 --><!-- end ngRepeat: reward in rewards --><!-- ngIf: reward.product_type_id == 2 --><div ng-if="reward.product_type_id == 2" ng-repeat="reward in rewards" class="col-md-3 ng-scope">
+                                <div>
+                                    <div class="ibox">
+                                        <div class="ibox-content product-box">
+                                            <!-- ngIf: reward.image_path -->
+                                            <!-- ngIf: !reward.image_path --><div class="product-imitation ng-scope" ng-if="!reward.image_path">
+                                                [Placeholder]
+                                            </div><!-- end ngIf: !reward.image_path -->
+                                            <div class="product-desc">
+                                                <span class="product-price ng-binding">
+                                                    50
+                                                </span>
+                                                <small class="text-muted ng-binding">Toys &amp; Games</small>
+                                                <a class="product-name ng-binding" href="#"> Coins</a>
+
+
+
+                                                <div class="small m-t-xs">
+                                                    <!-- Many desktop publishing packages and web page editors now. -->
+                                                </div>
+                                                <div class="m-t text-right">
+                                                    <div ng-click="RdmCtrl.redeemInstant(reward.id, null, reward.product_type_id)" class="btn btn-xs btn-outline btn-primary" ng-show="RdmCtrl.auth('instantGiftCredit')" id="ir1">Instant Redeem <i class="fa fa-long-arrow-right"></i> </div>
+                                                    <!-- ngIf: RdmCtrl.auth('inhouseredemption') && showAmazonTango --><div ng-click="RdmCtrl.inhouse(reward,'store_credit')" ng-disabled="redeemBtn" ng-if="RdmCtrl.auth('inhouseredemption') &amp;&amp; showAmazonTango" class="btn btn-xs btn-outline btn-primary  ng-scope" id="rr1">Redeem <i class="fa fa-long-arrow-right"></i> </div><!-- end ngIf: RdmCtrl.auth('inhouseredemption') && showAmazonTango -->
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div><!-- end ngIf: reward.product_type_id == 2 --><!-- end ngRepeat: reward in rewards --><!-- ngIf: reward.product_type_id == 2 --><div ng-if="reward.product_type_id == 2" ng-repeat="reward in rewards" class="col-md-3 ng-scope">
+                                <div>
+                                    <div class="ibox">
+                                        <div class="ibox-content product-box">
+                                            <!-- ngIf: reward.image_path -->
+                                            <!-- ngIf: !reward.image_path --><div class="product-imitation ng-scope" ng-if="!reward.image_path">
+                                                [Placeholder]
+                                            </div><!-- end ngIf: !reward.image_path -->
+                                            <div class="product-desc">
+                                                <span class="product-price ng-binding">
+                                                    50
+                                                </span>
+                                                <small class="text-muted ng-binding">House &amp; Home</small>
+                                                <a class="product-name ng-binding" href="#"> Cards</a>
+
+
+
+                                                <div class="small m-t-xs">
+                                                    <!-- Many desktop publishing packages and web page editors now. -->
+                                                </div>
+                                                <div class="m-t text-right">
+                                                    <div ng-click="RdmCtrl.redeemInstant(reward.id, null, reward.product_type_id)" class="btn btn-xs btn-outline btn-primary" ng-show="RdmCtrl.auth('instantGiftCredit')" id="ir5">Instant Redeem <i class="fa fa-long-arrow-right"></i> </div>
+                                                    <!-- ngIf: RdmCtrl.auth('inhouseredemption') && showAmazonTango --><div ng-click="RdmCtrl.inhouse(reward,'store_credit')" ng-disabled="redeemBtn" ng-if="RdmCtrl.auth('inhouseredemption') &amp;&amp; showAmazonTango" class="btn btn-xs btn-outline btn-primary  ng-scope" id="rr5">Redeem <i class="fa fa-long-arrow-right"></i> </div><!-- end ngIf: RdmCtrl.auth('inhouseredemption') && showAmazonTango -->
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div><!-- end ngIf: reward.product_type_id == 2 --><!-- end ngRepeat: reward in rewards --><!-- ngIf: reward.product_type_id == 2 --><!-- end ngRepeat: reward in rewards --><!-- ngIf: reward.product_type_id == 2 --><!-- end ngRepeat: reward in rewards -->
+                        </div>
+                    </div>
+                </div>
+                <div ng-class="{'active':tab2, 'tab-pane': true}" id="tab-2" class="tab-pane">
+                    <div class="panel-body">
+                        <div class="row">
+                            <!-- ngRepeat: instantReward in instantRewards --><div ng-repeat="instantReward in instantRewards" class="col-lg-4 ng-scope">
+                                <div class="ibox">
+                                    <div class="ibox-title">
+                                        <h5 class="ng-binding">Amazon Rewards</h5>
+                                    </div>
+                                    <div class="ibox-content">
+                                        <img class="img-responsive" ng-src="http://buzzy.twinspark.co/staging/img/amazon_gift_card_small.png" src="http://buzzy.twinspark.co/staging/img/amazon_gift_card_small.png" />
+                                        <div class="user-button">
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <button ng-click="whatisthis(instantReward.name, instantReward.description)" class="btn btn-default btn-sm btn-block" type="button">What's this? </button>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <button ng-click="RdmCtrl.walletCredits(instantReward.label)" ng-disabled="redeemBtn" class="btn btn-primary btn-sm btn-block" type="button" id="Amazon Rewards1"><i class="fa fa-gift"></i> Redeem</button>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div><!-- end ngRepeat: instantReward in instantRewards --><div ng-repeat="instantReward in instantRewards" class="col-lg-4 ng-scope">
+                                <div class="ibox">
+                                    <div class="ibox-title">
+                                        <h5 class="ng-binding">Tango Rewards</h5>
+                                    </div>
+                                    <div class="ibox-content">
+                                        <img class="img-responsive" ng-src="http://buzzy.twinspark.co/staging/img/tangocard-small.png" src="http://buzzy.twinspark.co/staging/img/tangocard-small.png" />
+                                        <div class="user-button">
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <button ng-click="whatisthis(instantReward.name, instantReward.description)" class="btn btn-default btn-sm btn-block" type="button">What's this? </button>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <button ng-click="RdmCtrl.walletCredits(instantReward.label)" ng-disabled="redeemBtn" class="btn btn-primary btn-sm btn-block" type="button" id="Tango Rewards1"><i class="fa fa-gift"></i> Redeem</button>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div><!-- end ngRepeat: instantReward in instantRewards -->
+                        </div>
+                    </div>
+                </div>
+                <div ng-class="{'active':tab3, 'tab-pane': true}" id="tab-3" class="tab-pane">
+                    <div class="panel-body">
+                        <div class="row">
+                            <!-- ngRepeat: instantReward in instantRewards --><div ng-repeat="instantReward in instantRewards" class="col-lg-4 ng-scope">
+                                <div class="ibox">
+                                    <div class="ibox-title">
+                                        <h5 class="ng-binding">Amazon Rewards</h5>
+                                    </div>
+                                    <div class="ibox-content">
+                                        <img class="img-responsive" ng-src="http://buzzy.twinspark.co/staging/img/amazon_gift_card_small.png" src="http://buzzy.twinspark.co/staging/img/amazon_gift_card_small.png" />
+                                        <div class="user-button">
+                                            <div class="row">
+                                                <!-- ngRepeat: reward in rewards --><!-- ngIf: reward.product_type_id == 3 && reward.amount > 0 && reward.status == true --><!-- end ngRepeat: reward in rewards --><!-- ngIf: reward.product_type_id == 3 && reward.amount > 0 && reward.status == true --><!-- end ngRepeat: reward in rewards --><!-- ngIf: reward.product_type_id == 3 && reward.amount > 0 && reward.status == true --><!-- end ngRepeat: reward in rewards --><!-- ngIf: reward.product_type_id == 3 && reward.amount > 0 && reward.status == true --><!-- end ngRepeat: reward in rewards --><!-- ngIf: reward.product_type_id == 3 && reward.amount > 0 && reward.status == true --><!-- end ngRepeat: reward in rewards --><!-- ngIf: reward.product_type_id == 3 && reward.amount > 0 && reward.status == true --><!-- end ngRepeat: reward in rewards --><!-- ngIf: reward.product_type_id == 3 && reward.amount > 0 && reward.status == true --><!-- end ngRepeat: reward in rewards --><!-- ngIf: reward.product_type_id == 3 && reward.amount > 0 && reward.status == true --><div ng-if="reward.product_type_id == 3 &amp;&amp; reward.amount &gt; 0 &amp;&amp; reward.status == true" ng-repeat="reward in rewards" class="ng-scope">
+                                                        <div class="col-md-2">
+                                                            <button ng-click="RdmCtrl.redeemInstant(reward.id, instantReward.label, reward.product_type_id)" ng-disabled="instantCreditBtn" type="button" class="btn btn-primary btn-sm ng-binding" id="gift191">$34
+                                                            </button>
+                                                        </div>
+                                                </div><!-- end ngIf: reward.product_type_id == 3 && reward.amount > 0 && reward.status == true --><!-- end ngRepeat: reward in rewards -->
+                                                <div class="col-md-5 pull-right">
+                                                    
+                                                        <button ng-click="RdmCtrl.enterGiftCredit(instantReward.label)" ng-disabled="instantCreditBtn" class="btn btn-primary btn-sm btn-block" type="button" id="Amazon Rewards2">Enter Amount</button>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div><!-- end ngRepeat: instantReward in instantRewards --><div ng-repeat="instantReward in instantRewards" class="col-lg-4 ng-scope">
+                                <div class="ibox">
+                                    <div class="ibox-title">
+                                        <h5 class="ng-binding">Tango Rewards</h5>
+                                    </div>
+                                    <div class="ibox-content">
+                                        <img class="img-responsive" ng-src="http://buzzy.twinspark.co/staging/img/tangocard-small.png" src="http://buzzy.twinspark.co/staging/img/tangocard-small.png" />
+                                        <div class="user-button">
+                                            <div class="row">
+                                                <!-- ngRepeat: reward in rewards --><!-- ngIf: reward.product_type_id == 3 && reward.amount > 0 && reward.status == true --><!-- end ngRepeat: reward in rewards --><!-- ngIf: reward.product_type_id == 3 && reward.amount > 0 && reward.status == true --><!-- end ngRepeat: reward in rewards --><!-- ngIf: reward.product_type_id == 3 && reward.amount > 0 && reward.status == true --><!-- end ngRepeat: reward in rewards --><!-- ngIf: reward.product_type_id == 3 && reward.amount > 0 && reward.status == true --><!-- end ngRepeat: reward in rewards --><!-- ngIf: reward.product_type_id == 3 && reward.amount > 0 && reward.status == true --><!-- end ngRepeat: reward in rewards --><!-- ngIf: reward.product_type_id == 3 && reward.amount > 0 && reward.status == true --><!-- end ngRepeat: reward in rewards --><!-- ngIf: reward.product_type_id == 3 && reward.amount > 0 && reward.status == true --><!-- end ngRepeat: reward in rewards --><!-- ngIf: reward.product_type_id == 3 && reward.amount > 0 && reward.status == true --><div ng-if="reward.product_type_id == 3 &amp;&amp; reward.amount &gt; 0 &amp;&amp; reward.status == true" ng-repeat="reward in rewards" class="ng-scope">
+                                                        <div class="col-md-2">
+                                                            <button ng-click="RdmCtrl.redeemInstant(reward.id, instantReward.label, reward.product_type_id)" ng-disabled="instantCreditBtn" type="button" class="btn btn-primary btn-sm ng-binding" id="gift192">$34
+                                                            </button>
+                                                        </div>
+                                                </div><!-- end ngIf: reward.product_type_id == 3 && reward.amount > 0 && reward.status == true --><!-- end ngRepeat: reward in rewards -->
+                                                <div class="col-md-5 pull-right">
+                                                    
+                                                        <button ng-click="RdmCtrl.enterGiftCredit(instantReward.label)" ng-disabled="instantCreditBtn" class="btn btn-primary btn-sm btn-block" type="button" id="Tango Rewards2">Enter Amount</button>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div><!-- end ngRepeat: instantReward in instantRewards -->
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- Gift coupons tab-->
+                <div ng-class="{'active':tab4, 'tab-pane': true}" id="tab-4" class="tab-pane">
+                     <div class="panel-body">
+                        <!-- ngIf: !vendorGiftCoupons.length -->
+                        <!-- ngIf: vendorGiftCoupons.length --><div ng-if="vendorGiftCoupons.length" class="row ng-scope">
+                            <!-- ngRepeat: giftCoupon in vendorGiftCoupons --><div ng-repeat="giftCoupon in vendorGiftCoupons" class="col-md-3 ng-scope">
+                                <div class="ibox">
+                                    <div class="ibox-content product-box">
+                                        <div class="product-imitation">
+                                            <i style="font-size:100px;" class="fa fa-gift text-warning"></i>
+                                        </div>
+                                        <div style="height:90px;" class="product-desc">
+                                            <span class="product-price ng-binding">
+                                                1250
+                                            </span>
+                                            <label class="product-name text-navy ng-binding">$25 Gift Certificate</label> 
+                                            <div class="pull-right">
+                                                    <button ng-click="RdmCtrl.giftCoupon(giftCoupon.id)" ng-disabled="couponBtn" class="btn btn-primary btn-outline btn-sm btn-block" type="button" id="69">Redeem  <i class="fa fa-long-arrow-right"></i></button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div><!-- end ngRepeat: giftCoupon in vendorGiftCoupons --><div ng-repeat="giftCoupon in vendorGiftCoupons" class="col-md-3 ng-scope">
+                                <div class="ibox">
+                                    <div class="ibox-content product-box">
+                                        <div class="product-imitation">
+                                            <i style="font-size:100px;" class="fa fa-gift text-warning"></i>
+                                        </div>
+                                        <div style="height:90px;" class="product-desc">
+                                            <span class="product-price ng-binding">
+                                                2500
+                                            </span>
+                                            <label class="product-name text-navy ng-binding">$50 Gift Certificate</label> 
+                                            <div class="pull-right">
+                                                    <button ng-click="RdmCtrl.giftCoupon(giftCoupon.id)" ng-disabled="couponBtn" class="btn btn-primary btn-outline btn-sm btn-block" type="button" id="70">Redeem  <i class="fa fa-long-arrow-right"></i></button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div><!-- end ngRepeat: giftCoupon in vendorGiftCoupons --><div ng-repeat="giftCoupon in vendorGiftCoupons" class="col-md-3 ng-scope">
+                                <div class="ibox">
+                                    <div class="ibox-content product-box">
+                                        <div class="product-imitation">
+                                            <i style="font-size:100px;" class="fa fa-gift text-warning"></i>
+                                        </div>
+                                        <div style="height:90px;" class="product-desc">
+                                            <span class="product-price ng-binding">
+                                                3750
+                                            </span>
+                                            <label class="product-name text-navy ng-binding">$75 Gift Certificate</label> 
+                                            <div class="pull-right">
+                                                    <button ng-click="RdmCtrl.giftCoupon(giftCoupon.id)" ng-disabled="couponBtn" class="btn btn-primary btn-outline btn-sm btn-block" type="button" id="71">Redeem  <i class="fa fa-long-arrow-right"></i></button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div><!-- end ngRepeat: giftCoupon in vendorGiftCoupons --><div ng-repeat="giftCoupon in vendorGiftCoupons" class="col-md-3 ng-scope">
+                                <div class="ibox">
+                                    <div class="ibox-content product-box">
+                                        <div class="product-imitation">
+                                            <i style="font-size:100px;" class="fa fa-gift text-warning"></i>
+                                        </div>
+                                        <div style="height:90px;" class="product-desc">
+                                            <span class="product-price ng-binding">
+                                                5000
+                                            </span>
+                                            <label class="product-name text-navy ng-binding">$100 Gift Certificate</label> 
+                                            <div class="pull-right">
+                                                    <button ng-click="RdmCtrl.giftCoupon(giftCoupon.id)" ng-disabled="couponBtn" class="btn btn-primary btn-outline btn-sm btn-block" type="button" id="72">Redeem  <i class="fa fa-long-arrow-right"></i></button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div><!-- end ngRepeat: giftCoupon in vendorGiftCoupons --><div ng-repeat="giftCoupon in vendorGiftCoupons" class="col-md-3 ng-scope">
+                                <div class="ibox">
+                                    <div class="ibox-content product-box">
+                                        <div class="product-imitation">
+                                            <i style="font-size:100px;" class="fa fa-gift text-warning"></i>
+                                        </div>
+                                        <div style="height:90px;" class="product-desc">
+                                            <span class="product-price ng-binding">
+                                                22
+                                            </span>
+                                            <label class="product-name text-navy ng-binding">$120 giftcoupon</label> 
+                                            <div class="pull-right">
+                                                    <button ng-click="RdmCtrl.giftCoupon(giftCoupon.id)" ng-disabled="couponBtn" class="btn btn-primary btn-outline btn-sm btn-block" type="button" id="79">Redeem  <i class="fa fa-long-arrow-right"></i></button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div><!-- end ngRepeat: giftCoupon in vendorGiftCoupons -->
+                        </div><!-- end ngIf: vendorGiftCoupons.length -->
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div></div>
+	</div>
+</div>
+<script>
+var vendorId = "23";</script>
+                </div>
+        <div class="footer">
+            <div>
+                <strong>Copyright</strong> BuzzyDoc © 2016            </div>
+        </div>
+
+        </div>
+
+    </div>
+
+    <!-- Scripts -->
+    <!-- Metis Menu-->
+
+    <script src="/staging/js/bootstrap.min.js"></script>    <script src="/staging/js/super_admin.js"></script>    <script src="/staging/js/jquery.cookie.js"></script>    <script src="/staging/js/review_settings.js"></script>    
+	<script src="/staging/js/plugins/metisMenu/jquery.metisMenu.js"></script>
+	<script src="/staging/js/plugins/pace/pace.min.js"></script>
+	<script src="/staging/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+	<script src="/staging/js/plugins/toastr/toastr.min.js"></script>
+	<script src="/staging/js/plugins/validator/validator.js"></script>
+	<script src="/staging/js/plugins/staps/jquery.steps.min.js"></script>
+    
+    <!--Dashboard app scripts -->
+    <script src="/staging/js/plugins/dataTables/angular-datatables/jquery.dataTables.min.js"></script>    
+	<script src="/staging/dashboardApp/js/app.js"></script>
+	<script src="/staging/dashboardApp/js/directive.js"></script>
+	<script src="/staging/dashboardApp/js/interceptor.js"></script>
+	<script src="/staging/js/plugins/dataTables/datatables.min.js"></script>
+    <script src="/staging/js/plugins/dataTables/angular-datatables/angular-datatables.directive.js"></script>    <script src="/staging/js/plugins/dataTables/angular-datatables/angular-datatables.instances.js"></script>    <script src="/staging/js/plugins/dataTables/angular-datatables/angular-datatables.util.js"></script>    <script src="/staging/js/plugins/dataTables/angular-datatables/angular-datatables.renderer.js"></script>    <script src="/staging/js/plugins/dataTables/angular-datatables/angular-datatables.factory.js"></script>    <script src="/staging/js/plugins/dataTables/angular-datatables/angular-datatables.options.js"></script>    <script src="/staging/js/plugins/dataTables/angular-datatables/angular-datatables.js"></script>    <!--Dashboard app contollers -->
+    
+	<script src="/staging/dashboardApp/js/controller/menu.js"></script>
+	<script src="/staging/dashboardApp/js/controller/patient.js"></script>
+	<script src="/staging/dashboardApp/js/controller/profile.js"></script>
+	<script src="/staging/dashboardApp/js/controller/redemption.js"></script>
+	<script src="/staging/dashboardApp/js/controller/review.js"></script>
+	<script src="/staging/dashboardApp/js/controller/search.js"></script>
+	<script src="/staging/dashboardApp/js/controller/survey.js"></script>
+	<script src="/staging/dashboardApp/js/controller/tier.js"></script>
+	<script src="/staging/dashboardApp/js/controller/patient_history.js"></script>
+	<script src="/staging/dashboardApp/js/controller/manual.js"></script>
+
+    <!-- Dashboard app factories-->
+    
+	<script src="/staging/dashboardApp/js/factory/patient.js"></script>
+	<script src="/staging/dashboardApp/js/factory/reward_products.js"></script>
+	<script src="/staging/dashboardApp/js/factory/search_results.js"></script>
+	<script src="/staging/dashboardApp/js/factory/vendor.js"></script>
+	<script src="/staging/dashboardApp/js/factory/plan.js"></script>
+	<script src="/staging/dashboardApp/js/factory/gift_coupons.js"></script>
+	<script src="/staging/dashboardApp/js/factory/settings.js"></script>
+	<script src="/staging/dashboardApp/js/factory/isAuthorized.js"></script>
+
+    <script>
+//&lt;![CDATA[
+$(function () {
+  $('#side-menu').metisMenu();
+});
+//]]&gt;
+</script>
+    <script src="/staging/js/inspinia.js"></script>
+       <script>
+           $(function () {
+            $('#side-menu').metisMenu();
+          });
+       </script>
+
+
+<div style="display:none;margin-top:22%;" class="loading modal">
+	<div class="sk-spinner sk-spinner-wave modal-dialog">
+		<div class="sk-rect1"></div>
+		<div class="sk-rect2"></div>
+		<div class="sk-rect3"></div>
+		<div class="sk-rect4"></div>
+		<div class="sk-rect5"></div>
+	</div>
+</div><div tabindex="-1" class="sweet-overlay" style="opacity: 1.37; display: block;"></div><div class="sweet-alert showSweetAlert visible" data-custom-class="" data-has-cancel-button="true" data-has-confirm-button="true" data-allow-outside-click="false" data-has-done-function="true" data-animation="pop" data-timer="null" style="display: block; margin-top: -170px;"><div class="sa-icon sa-error" style="display: none;">
+      <span class="sa-x-mark">
+        <span class="sa-line sa-left"></span>
+        <span class="sa-line sa-right"></span>
+      </span>
+    </div><div class="sa-icon sa-warning pulseWarning" style="display: block;">
+      <span class="sa-body pulseWarningIns"></span>
+      <span class="sa-dot pulseWarningIns"></span>
+    </div><div class="sa-icon sa-info" style="display: none;"></div><div class="sa-icon sa-success" style="display: none;">
+      <span class="sa-line sa-tip"></span>
+      <span class="sa-line sa-long"></span>
+
+      <div class="sa-placeholder"></div>
+      <div class="sa-fix"></div>
+    </div><div class="sa-icon sa-custom" style="display: none;"></div><h2>Are you sure?</h2>
+    <p style="display: block;">Are you sure you want to redeem Coins for 50 points</p>
+    <fieldset>
+      <input type="text" tabindex="3" placeholder="" />
+      <div class="sa-input-error"></div>
+    </fieldset><div class="sa-error-container">
+      <div class="icon">!</div>
+      <p>Not valid!</p>
+    </div><div class="sa-button-container">
+      <button tabindex="2" class="cancel" style="display: inline-block; box-shadow: none;">Cancel</button>
+      <button tabindex="1" class="confirm" style="display: inline-block; background-color: rgb(221, 107, 85); box-shadow: 0px 0px 2px rgba(221, 107, 85, 0.8), 0px 0px 0px 1px rgba(0, 0, 0, 0.05) inset;">Yes</button>
+    </div></div></body><canvas id="fxdriver-screenshot-canvas" style="display: none;" width="1301" height="798"></canvas></html>
